@@ -63,7 +63,7 @@ export default defineConfig({
           "react-i18next": ["useTranslation", "Trans"],
         },
       ],
-      dts: true,
+      dts: process.env.NODE_ENV !== 'production',
     }),
   ],
   base,
