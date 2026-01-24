@@ -1,0 +1,68 @@
+import { useLanguage } from '../../../contexts/LanguageContext';
+import { useEffect, useRef, useState } from 'react';
+
+export default function About() {
+  const { t } = useLanguage();
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.2 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
+  return (
+    <section ref={sectionRef} className="py-24 px-6 bg-[#410704]">
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-16 text-center">
+          <h2 className="text-4xl md:text-5xl font-serif text-[#F5E6D3] mb-4">
+            {t('about.title')}
+          </h2>
+          <div className="flex items-center justify-center gap-4">
+            <div className="w-32 h-0.5 bg-gradient-to-r from-transparent via-[#D4AF37] to-[#C7A454]"></div>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#C7A454] to-[#B8941F] font-medium text-sm tracking-widest uppercase whitespace-nowrap">
+              {t('about.subtitle')}
+            </span>
+            <div className="w-32 h-0.5 bg-gradient-to-l from-transparent via-[#D4AF37] to-[#C7A454]"></div>
+          </div>
+        </div>
+
+        <div className={`relative max-w-4xl mx-auto transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
+          {/* Top-left corner border */}
+          <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-[#C7A454]"></div>
+          
+          {/* Bottom-right corner border */}
+          <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-[#C7A454]"></div>
+          
+          <div className="space-y-6 p-8">
+            <p className="text-base text-[#F5E6D3] leading-relaxed">
+              {t('about.p1')}
+            </p>
+            
+            <p className="text-base text-[#F5E6D3] leading-relaxed">
+              {t('about.p2')}
+            </p>
+            
+            <p className="text-base text-[#F5E6D3] leading-relaxed">
+              {t('about.p3')}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
