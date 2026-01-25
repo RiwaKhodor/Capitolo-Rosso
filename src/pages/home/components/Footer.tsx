@@ -103,7 +103,7 @@ export default function Footer() {
               </li>
               <li className="flex items-start justify-center md:justify-start">
                 <i className="ri-mail-line text-[#C7A454] mt-1 mr-3"></i>
-                <a href="mailto:info@vinoelibri.com" className="text-sm hover:text-[#C7A454] transition-colors">info@vinoelibri.com</a>
+                <a href="mailto:Info@capitolo-rosso.de" className="text-sm hover:text-[#C7A454] transition-colors">Info@capitolo-rosso.de</a>
               </li>
               <li className="flex items-start justify-center md:justify-start">
                 <i className="ri-map-pin-line text-[#C7A454] mt-1 mr-3"></i>

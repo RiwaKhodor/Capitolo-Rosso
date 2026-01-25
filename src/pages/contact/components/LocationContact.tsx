@@ -101,10 +101,10 @@ export default function LocationContact() {
                       {t('about.contact.email.title')}
                     </h3>
                     <a 
-                      href="mailto:info@vinoelibri.com" 
+                      href="mailto:Info@capitolo-rosso.de" 
                       className="text-sm text-[#F5E6D3]/80 hover:text-[#C7A454] transition-colors duration-300 cursor-pointer"
                     >
-                      info@vinoelibri.com
+                      Info@capitolo-rosso.de
                     </a>
                   </div>
                 </div>

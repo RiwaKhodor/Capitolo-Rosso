@@ -58,7 +58,7 @@ export default function Privacy() {
                 </p>
                 <p>
                   {t('privacy.responsible.phone')} <a href="tel:+493044058471" className="text-[#C7A454] hover:text-[#D4AF37] transition-colors">+49 (0)30 44058471</a><br />
-                  {t('privacy.responsible.email')} <a href="mailto:info@vinoelibri.com" className="text-[#C7A454] hover:text-[#D4AF37] transition-colors">info@vinoelibri.com</a><br />
+                  {t('privacy.responsible.email')} <a href="mailto:Info@capitolo-rosso.de" className="text-[#C7A454] hover:text-[#D4AF37] transition-colors">Info@capitolo-rosso.de</a><br />
                   {t('privacy.responsible.website')} <a href="https://www.capitolo-rosso.de" target="_blank" rel="noopener noreferrer" className="text-[#C7A454] hover:text-[#D4AF37] transition-colors">https://www.capitolo-rosso.de</a>
                 </p>
               </div>

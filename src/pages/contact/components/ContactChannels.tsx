@@ -56,8 +56,8 @@ export default function ContactChannels() {
     { 
       icon: 'ri-mail-line', 
       title: 'Email', 
-      text: 'info@vinoelibri.com',
-      action: 'mailto:info@vinoelibri.com'
+      text: 'Info@capitolo-rosso.de',
+      action: 'mailto:Info@capitolo-rosso.de'
     },
     { 
       icon: 'ri-instagram-line', 

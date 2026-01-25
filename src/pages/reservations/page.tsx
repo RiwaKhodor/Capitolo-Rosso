@@ -391,11 +391,11 @@ export default function Reservations() {
                 {t('reservations.contact.email.description')}
               </p>
               <a 
-                href="mailto:info@vinoelibri.com"
+                href="mailto:Info@capitolo-rosso.de"
                 className="inline-flex items-center gap-3 px-10 py-4 bg-transparent border-2 border-[#D4AF37] text-[#F5E6D3] font-semibold rounded-md hover:bg-[#D4AF37] hover:text-[#410704] transition-all duration-300 transform hover:scale-105 whitespace-nowrap cursor-pointer text-base"
               >
                 <i className="ri-mail-line text-xl"></i>
-                info@vinoelibri.com
+                Info@capitolo-rosso.de
               </a>
             </div>
           </div>
