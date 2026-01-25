@@ -90,7 +90,7 @@ export default function Manage() {
     }
   };
 
-  // Auto-translate English to German
+  // Auto-translate English to German for Events
   const handleTranslateEvent = async () => {
     if (!event.titleEn && !event.descriptionEn) {
       alert('Please enter English text first');
@@ -106,6 +106,25 @@ export default function Manage() {
       ...event,
       title: translatedTitle || event.title,
       description: translatedDescription || event.description,
+    });
+  };
+
+  // Auto-translate English to German for Menu Items
+  const handleTranslateMenuItem = async () => {
+    if (!menuItem.nameEn && !menuItem.descriptionEn) {
+      alert('Please enter English text first');
+      return;
+    }
+
+    const [translatedName, translatedDescription] = await Promise.all([
+      menuItem.nameEn ? translateToGerman(menuItem.nameEn) : Promise.resolve(''),
+      menuItem.descriptionEn ? translateToGerman(menuItem.descriptionEn) : Promise.resolve('')
+    ]);
+
+    setMenuItem({
+      ...menuItem,
+      name: translatedName || menuItem.name,
+      description: translatedDescription || menuItem.description,
     });
   };
 
@@ -520,6 +539,14 @@ export default function Manage() {
                   />
                 </div>
               </div>
+              <button
+                type="button"
+                onClick={handleTranslateMenuItem}
+                className="mt-4 px-6 py-2 bg-[#C7A454] hover:bg-[#D4AF37] text-[#410704] font-semibold rounded-md transition-all duration-300 flex items-center gap-2"
+              >
+                <i className="ri-translate-2-line"></i>
+                Translate English to German
+              </button>
               <button
                 onClick={handleAddMenuItem}
                 className="mt-6 px-8 py-3 bg-gradient-to-b from-[#D4AF37] via-[#C7A454] to-[#B8941F] text-[#410704] font-semibold rounded-md hover:shadow-lg transition-all duration-300"
