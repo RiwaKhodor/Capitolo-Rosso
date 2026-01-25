@@ -126,7 +126,7 @@ export default function ContactInfo() {
           {/* Map - Below the 2 divs on mobile, beside on desktop */}
           <div className="rounded-lg overflow-hidden h-[200px] md:h-[300px] mt-12 md:mt-16">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2428.4089842896547!2d13.404953999999999!3d52.520008!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTLCsDMxJzEyLjAiTiAxM8KwMjQnMTcuOCJF!5e0!3m2!1sen!2sde!4v1234567890"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2427.0145307306!2d13.404322976681907!3d52.533171272064564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a851fcbfaf2af3%3A0x17e47363e267feec!2sChoriner%20Str.%2072%2C%2010119%20Berlin%2C%20Germany!5e0!3m2!1sen!2slb!4v1769302423864!5m2!1sen!2slb"
               width="100%"
               height="100%"
               style={{ border: 0 }}
