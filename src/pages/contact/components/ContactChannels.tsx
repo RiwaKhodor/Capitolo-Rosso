@@ -79,12 +79,12 @@ export default function ContactChannels() {
       <div className="max-w-7xl mx-auto relative z-10">
         <div 
           ref={headerRef}
-          className={`text-center mb-16 transition-all duration-1000 ease-out ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-10 scale-95'}`}
+          className={`text-center mb-16 transition-all duration-1000 ease-out px-4 md:px-0 ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-10 scale-95'}`}
         >
           <h2 className="text-4xl md:text-5xl font-serif text-[#F5E6D3] mb-4">
             {t('contact.channels.title')}
           </h2>
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex items-center justify-center gap-4 px-4 md:px-0">
             <div className={`w-32 h-0.5 bg-gradient-to-r from-transparent via-[#D4AF37] to-[#C7A454] transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`} style={{ transitionDelay: '200ms' }}></div>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#C7A454] to-[#B8941F] font-medium text-sm tracking-widest uppercase whitespace-nowrap">
               {t('contact.channels.subtitle')}
