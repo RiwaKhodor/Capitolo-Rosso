@@ -6,7 +6,10 @@ export default function Footer() {
   const navigate = useNavigate();
 
   const handleQuickLinkClick = (path: string) => {
+    // Scroll to top immediately, especially important on mobile
+    window.scrollTo({ top: 0, behavior: 'instant' });
     navigate(path);
+    // Also ensure scroll after navigation completes
     setTimeout(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 100);

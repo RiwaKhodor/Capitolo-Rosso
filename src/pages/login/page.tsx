@@ -25,7 +25,7 @@ export default function Login() {
   const [isLogin, setIsLogin] = useState(true);
   const [name, setName] = useState('');
   const { login, register, loginWithGoogle, user } = useAuth();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const navigate = useNavigate();
   const googleButtonRef = useRef<HTMLDivElement>(null);
 
@@ -67,9 +67,15 @@ export default function Login() {
             googleButtonRef.current.innerHTML = '';
           }
           
+          // Only allow German (de) or English (en), default to English
+          // Force locale to prevent Arabic or other languages
+          const googleLocale = language === 'de' ? 'de' : 'en';
+          
           window.google.accounts.id.initialize({
             client_id: clientId,
             callback: handleGoogleSignIn,
+            ux_mode: 'popup',
+            locale: googleLocale,
           });
 
           window.google.accounts.id.renderButton(googleButtonRef.current, {
@@ -77,6 +83,7 @@ export default function Login() {
             size: 'large',
             text: 'signin_with',
             width: '100%',
+            locale: googleLocale,
           });
         } else {
           // Show a message if Google Client ID is not configured

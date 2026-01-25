@@ -28,7 +28,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
   const [isLogin, setIsLogin] = useState(true);
   const [name, setName] = useState('');
   const { login, register, loginWithGoogle } = useAuth();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const googleButtonRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -102,9 +102,15 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
             googleButtonRef.current.innerHTML = '';
           }
           
+          // Only allow German (de) or English (en), default to English
+          // Force locale to prevent Arabic or other languages
+          const googleLocale = language === 'de' ? 'de' : 'en';
+          
           window.google.accounts.id.initialize({
             client_id: clientId,
             callback: handleGoogleSignIn,
+            ux_mode: 'popup',
+            locale: googleLocale,
           });
 
           window.google.accounts.id.renderButton(googleButtonRef.current, {
@@ -112,6 +118,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
             size: 'large',
             text: 'signin_with',
             width: '100%',
+            locale: googleLocale,
           });
         } else {
           if (googleButtonRef.current) {
