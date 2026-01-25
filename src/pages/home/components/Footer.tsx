@@ -101,7 +101,7 @@ export default function Footer() {
               </li>
             </ul>
             <div className="flex space-x-4 mt-6 justify-center md:justify-start">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center bg-[#C7A454] rounded-full hover:bg-[#F5E6D3] transition-colors duration-300 cursor-pointer">
+              <a href="https://instagram.com/capitolo_rosso" target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center bg-[#C7A454] rounded-full hover:bg-[#F5E6D3] transition-colors duration-300 cursor-pointer">
                 <i className="ri-instagram-line text-[#410704] text-lg"></i>
               </a>
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center bg-[#C7A454] rounded-full hover:bg-[#F5E6D3] transition-colors duration-300 cursor-pointer">

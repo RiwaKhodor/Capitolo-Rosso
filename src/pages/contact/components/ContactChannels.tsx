@@ -62,8 +62,8 @@ export default function ContactChannels() {
     { 
       icon: 'ri-instagram-line', 
       title: 'Instagram', 
-      text: '@capitolorosso',
-      action: 'https://instagram.com'
+      text: '@capitolo_rosso',
+      action: 'https://instagram.com/capitolo_rosso'
     },
     { 
       icon: 'ri-facebook-fill', 
