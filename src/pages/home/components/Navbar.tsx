@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import LanguageSwitcher from '../../../components/feature/LanguageSwitcher';
 import { useLanguage } from '../../../contexts/LanguageContext';
@@ -30,6 +30,7 @@ function CompactLanguageSwitcher({ scrolled }: { scrolled: boolean }) {
 export default function Navbar({ scrolled }: NavbarProps) {
   const { t } = useLanguage();
   const { user, logout } = useAuth();
+  const location = useLocation();
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const userMenuRef = useRef<HTMLDivElement>(null);
 
@@ -81,6 +82,21 @@ export default function Navbar({ scrolled }: NavbarProps) {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
+
+  // Scroll to top when route changes (especially important on mobile)
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [location.pathname]);
+
+  const handleMobileNavClick = () => {
+    // Scroll to top immediately before closing menu
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    setIsOpen(false);
+    // Ensure scroll after navigation completes
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }, 100);
+  };
 
   return (
     <nav 
@@ -190,7 +206,7 @@ export default function Navbar({ scrolled }: NavbarProps) {
               <Link
                 key={item.path}
                 to={item.path}
-                onClick={() => setIsOpen(false)}
+                onClick={handleMobileNavClick}
                 className="block px-6 py-3 text-[#C7A454] hover:text-[#D4AF37] hover:bg-[#410704]/5 transition-colors duration-300 cursor-pointer text-sm"
               >
                 {item.label}
@@ -204,7 +220,7 @@ export default function Navbar({ scrolled }: NavbarProps) {
                 {user.isAdmin && (
                   <Link
                     to="/manage"
-                    onClick={() => setIsOpen(false)}
+                    onClick={handleMobileNavClick}
                     className="block mx-6 mt-4 px-6 py-3 bg-gradient-to-b from-[#D4AF37] via-[#C7A454] to-[#B8941F] text-[#410704] text-center rounded-md font-semibold hover:from-[#C7A454] hover:via-[#D4AF37] hover:to-[#C7A454] transition-all duration-300 cursor-pointer text-sm shadow-lg"
                   >
                     {t('nav.manage')}
@@ -230,7 +246,7 @@ export default function Navbar({ scrolled }: NavbarProps) {
               <div className="px-6 py-3">
                 <Link
                   to="/login"
-                  onClick={() => setIsOpen(false)}
+                  onClick={handleMobileNavClick}
                   className="block px-8 py-3 bg-gradient-to-b from-[#D4AF37] via-[#C7A454] to-[#B8941F] text-[#410704] text-center rounded-md font-semibold hover:from-[#410704] hover:via-[#410704] hover:to-[#410704] hover:text-[#C7A454] transition-all duration-300 cursor-pointer text-sm mx-auto max-w-xs"
                 >
                   {t('nav.login')}
