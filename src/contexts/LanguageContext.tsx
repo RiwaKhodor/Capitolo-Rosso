@@ -74,6 +74,14 @@ const translations: Record<string, Record<string, string>> = {
     'about.experience.service.title': 'Aufmerksamer Service',
     'about.experience.service.description': 'Unser engagiertes Team sorgt dafür, dass jeder Aspekt Ihres Besuchs außergewöhnlich ist. Von der Reservierung bis zum letzten Bissen sind wir hier, um Ihr Erlebnis unvergesslich zu machen.',
     
+    'about.services.title': 'Unsere Dienstleistungen',
+    'about.services.subtitle': 'Was Wir Bieten',
+    'about.services.catering': 'Catering',
+    'about.services.outsideSeating': 'Außensitzplätze',
+    'about.services.takeaway': 'Takeaway',
+    'about.services.weddingReceptions': 'Hochzeitsfeiern',
+    'about.services.freeWifi': 'Kostenloses WLAN',
+    
     'about.contact.title': 'Besuchen Sie Uns',
     'about.contact.subtitle': 'Kontakt & Öffnungszeiten',
     'about.contact.address.title': 'Adresse',
@@ -432,6 +440,14 @@ const translations: Record<string, Record<string, string>> = {
     'about.experience.ambiance.description': 'Immerse yourself in an atmosphere that blends Italian elegance with Berlin charm. Warm lighting, carefully selected decor, and attentive service create the perfect setting.',
     'about.experience.service.title': 'Attentive Service',
     'about.experience.service.description': 'Our dedicated team ensures that every aspect of your visit is exceptional. From reservation to the last bite, we\'re here to make your experience memorable.',
+    
+    'about.services.title': 'Our Services',
+    'about.services.subtitle': 'What We Offer',
+    'about.services.catering': 'Catering',
+    'about.services.outsideSeating': 'Outside Seating',
+    'about.services.takeaway': 'Takeaway',
+    'about.services.weddingReceptions': 'Wedding Receptions',
+    'about.services.freeWifi': 'Free Wifi',
     
     'about.contact.title': 'Visit Us',
     'about.contact.subtitle': 'Contact & Hours',
