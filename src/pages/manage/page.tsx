@@ -480,7 +480,7 @@ export default function Manage() {
               </h2>
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-[#F5E6D3] mb-2">{t('manage.itemName')} (EN) *</label>
+                  <label className="block text-sm font-medium text-[#F5E6D3] mb-2">{t('manage.itemNameEn')} *</label>
                   <input
                     type="text"
                     value={menuItem.nameEn || ''}
@@ -489,7 +489,7 @@ export default function Manage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-[#F5E6D3] mb-2">{t('manage.itemName')} (DE) - Auto-translated</label>
+                  <label className="block text-sm font-medium text-[#F5E6D3] mb-2">{t('manage.itemName')} - Auto-translated</label>
                   <input
                     type="text"
                     value={menuItem.name || ''}
@@ -499,7 +499,7 @@ export default function Manage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-[#F5E6D3] mb-2">{t('manage.itemDescription')} (EN) *</label>
+                  <label className="block text-sm font-medium text-[#F5E6D3] mb-2">{t('manage.itemDescriptionEn')} *</label>
                   <textarea
                     value={menuItem.descriptionEn || ''}
                     onChange={(e) => setMenuItem({ ...menuItem, descriptionEn: e.target.value })}
@@ -508,7 +508,7 @@ export default function Manage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-[#F5E6D3] mb-2">{t('manage.itemDescription')} (DE) - Auto-translated</label>
+                  <label className="block text-sm font-medium text-[#F5E6D3] mb-2">{t('manage.itemDescription')} - Auto-translated</label>
                   <textarea
                     value={menuItem.description || ''}
                     onChange={(e) => setMenuItem({ ...menuItem, description: e.target.value })}
