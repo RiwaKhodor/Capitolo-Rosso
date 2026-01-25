@@ -1,17 +1,27 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useLanguage } from '../../../contexts/LanguageContext';
 
 export default function Footer() {
   const { t } = useLanguage();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Scroll to top when route changes (especially important on mobile)
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [location.pathname]);
 
   const handleQuickLinkClick = (path: string) => {
-    // Scroll to top immediately, especially important on mobile
+    // Scroll to top immediately before navigation
     window.scrollTo({ top: 0, behavior: 'instant' });
+    
+    // Navigate to the new page
     navigate(path);
-    // Also ensure scroll after navigation completes
+    
+    // Ensure scroll to top after navigation completes (important for mobile)
     setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'instant' });
     }, 100);
   };
 
