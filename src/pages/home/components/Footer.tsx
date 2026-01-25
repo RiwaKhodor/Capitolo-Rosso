@@ -89,15 +89,15 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start justify-center md:justify-start">
                 <i className="ri-phone-line text-[#C7A454] mt-1 mr-3"></i>
-                <a href="tel:+493055232260" className="text-sm hover:text-[#C7A454] transition-colors">+49 (0)30 55232260</a>
+                <a href="tel:+493044058471" className="text-sm hover:text-[#C7A454] transition-colors">+49 (0)30 44058471</a>
               </li>
               <li className="flex items-start justify-center md:justify-start">
                 <i className="ri-mail-line text-[#C7A454] mt-1 mr-3"></i>
-                <a href="mailto:info@capitolo-rosso.de" className="text-sm hover:text-[#C7A454] transition-colors">info@capitolo-rosso.de</a>
+                <a href="mailto:info@vinoelibri.com" className="text-sm hover:text-[#C7A454] transition-colors">info@vinoelibri.com</a>
               </li>
               <li className="flex items-start justify-center md:justify-start">
                 <i className="ri-map-pin-line text-[#C7A454] mt-1 mr-3"></i>
-                <span className="text-sm">Choriner Straße 72, 10119 Berlin</span>
+                <span className="text-sm">Choriner Straße 72<br />Ecke Zionskirchstraße<br />10119 Berlin<br />Germany</span>
               </li>
             </ul>
             <div className="flex space-x-4 mt-6 justify-center md:justify-start">

@@ -84,10 +84,10 @@ export default function LocationContact() {
                       {t('about.contact.phone.title')}
                     </h3>
                     <a 
-                      href="tel:+493055232260" 
+                      href="tel:+493044058471" 
                       className="text-sm text-[#F5E6D3]/80 hover:text-[#C7A454] transition-colors duration-300 cursor-pointer"
                     >
-                      +49 (0)30 55232260
+                      +49 (0)30 44058471
                     </a>
                   </div>
                 </div>
@@ -101,10 +101,10 @@ export default function LocationContact() {
                       {t('about.contact.email.title')}
                     </h3>
                     <a 
-                      href="mailto:info@capitolo-rosso.de" 
+                      href="mailto:info@vinoelibri.com" 
                       className="text-sm text-[#F5E6D3]/80 hover:text-[#C7A454] transition-colors duration-300 cursor-pointer"
                     >
-                      info@capitolo-rosso.de
+                      info@vinoelibri.com
                     </a>
                   </div>
                 </div>

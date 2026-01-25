@@ -50,14 +50,14 @@ export default function ContactChannels() {
     { 
       icon: 'ri-phone-line', 
       title: 'Phone', 
-      text: '+49 (0)30 55232260',
-      action: 'tel:+493055232260'
+      text: '+49 (0)30 44058471',
+      action: 'tel:+493044058471'
     },
     { 
       icon: 'ri-mail-line', 
       title: 'Email', 
-      text: 'info@capitolo-rosso.de',
-      action: 'mailto:info@capitolo-rosso.de'
+      text: 'info@vinoelibri.com',
+      action: 'mailto:info@vinoelibri.com'
     },
     { 
       icon: 'ri-instagram-line', 

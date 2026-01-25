@@ -46,8 +46,9 @@ export default function Impressum() {
                 <p>
                   <strong>Capitolo Rosso</strong><br />
                   Choriner Straße 72<br />
+                  Ecke Zionskirchstraße<br />
                   10119 Berlin<br />
-                  Bundesrepublik Deutschland
+                  Germany
                 </p>
                 
                 <p>
@@ -57,8 +58,8 @@ export default function Impressum() {
                 
                 <p>
                   <strong>{t('impressum.ddg.contact')}</strong><br />
-                  {t('impressum.ddg.phone')} <a href="tel:+493055232260" className="text-[#C7A454] hover:text-[#D4AF37] transition-colors">+49 (0)30 55232260</a><br />
-                  {t('impressum.ddg.email')} <a href="mailto:info@capitolo-rosso.de" className="text-[#C7A454] hover:text-[#D4AF37] transition-colors">info@capitolo-rosso.de</a><br />
+                  {t('impressum.ddg.phone')} <a href="tel:+493044058471" className="text-[#C7A454] hover:text-[#D4AF37] transition-colors">+49 (0)30 44058471</a><br />
+                  {t('impressum.ddg.email')} <a href="mailto:info@vinoelibri.com" className="text-[#C7A454] hover:text-[#D4AF37] transition-colors">info@vinoelibri.com</a><br />
                   {t('impressum.ddg.internet')} <a href="https://www.capitolo-rosso.de" target="_blank" rel="noopener noreferrer" className="text-[#C7A454] hover:text-[#D4AF37] transition-colors">https://www.capitolo-rosso.de</a>
                 </p>
               </div>

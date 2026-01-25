@@ -52,12 +52,13 @@ export default function Privacy() {
                   <strong>Capitolo Rosso</strong><br />
                   {t('privacy.responsible.owner')} Khodor Hamadeh<br />
                   Choriner Straße 72<br />
+                  Ecke Zionskirchstraße<br />
                   10119 Berlin<br />
-                  Deutschland
+                  Germany
                 </p>
                 <p>
-                  {t('privacy.responsible.phone')} <a href="tel:+493055232260" className="text-[#C7A454] hover:text-[#D4AF37] transition-colors">+49 (0)30 55232260</a><br />
-                  {t('privacy.responsible.email')} <a href="mailto:info@capitolo-rosso.de" className="text-[#C7A454] hover:text-[#D4AF37] transition-colors">info@capitolo-rosso.de</a><br />
+                  {t('privacy.responsible.phone')} <a href="tel:+493044058471" className="text-[#C7A454] hover:text-[#D4AF37] transition-colors">+49 (0)30 44058471</a><br />
+                  {t('privacy.responsible.email')} <a href="mailto:info@vinoelibri.com" className="text-[#C7A454] hover:text-[#D4AF37] transition-colors">info@vinoelibri.com</a><br />
                   {t('privacy.responsible.website')} <a href="https://www.capitolo-rosso.de" target="_blank" rel="noopener noreferrer" className="text-[#C7A454] hover:text-[#D4AF37] transition-colors">https://www.capitolo-rosso.de</a>
                 </p>
               </div>

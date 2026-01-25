@@ -374,11 +374,11 @@ export default function Reservations() {
                 {t('reservations.contact.phone.description')}
               </p>
               <a 
-                href="tel:+493055232260"
+                href="tel:+493044058471"
                 className="inline-flex items-center gap-3 px-10 py-4 bg-gradient-to-b from-[#D4AF37] via-[#C7A454] to-[#B8941F] text-[#410704] font-semibold rounded-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 whitespace-nowrap cursor-pointer text-base"
               >
                 <i className="ri-phone-line text-xl"></i>
-                +49 (0)30 55232260
+                +49 (0)30 44058471
               </a>
             </div>
             
@@ -391,11 +391,11 @@ export default function Reservations() {
                 {t('reservations.contact.email.description')}
               </p>
               <a 
-                href="mailto:info@capitolo-rosso.de"
+                href="mailto:info@vinoelibri.com"
                 className="inline-flex items-center gap-3 px-10 py-4 bg-transparent border-2 border-[#D4AF37] text-[#F5E6D3] font-semibold rounded-md hover:bg-[#D4AF37] hover:text-[#410704] transition-all duration-300 transform hover:scale-105 whitespace-nowrap cursor-pointer text-base"
               >
                 <i className="ri-mail-line text-xl"></i>
-                info@capitolo-rosso.de
+                info@vinoelibri.com
               </a>
             </div>
           </div>
