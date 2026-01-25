@@ -264,9 +264,20 @@ export default function Manage() {
   };
 
   const handleAddMenuItem = async () => {
-    if (!menuItem.name || !menuItem.price || !menuItem.category) {
-      alert(t('manage.error'));
+    if (!menuItem.nameEn || !menuItem.price || !menuItem.category) {
+      alert('Please fill in English name, price, and category');
       return;
+    }
+
+    // Auto-translate if German fields are empty
+    let finalName = menuItem.name;
+    let finalDescription = menuItem.description;
+    
+    if (!finalName && menuItem.nameEn) {
+      finalName = await translateToGerman(menuItem.nameEn);
+    }
+    if (!finalDescription && menuItem.descriptionEn) {
+      finalDescription = await translateToGerman(menuItem.descriptionEn);
     }
     
     if (editingItem && editingItem.id) {
@@ -282,10 +293,10 @@ export default function Manage() {
       
       // Update the item in Supabase
       const updated = await menuService.updateItem(editingItem.id, {
-        name: menuItem.name!,
-        name_en: menuItem.nameEn || menuItem.name!,
-        description: menuItem.description || '',
-        description_en: menuItem.descriptionEn || menuItem.description || '',
+        name: finalName || menuItem.nameEn!,
+        name_en: menuItem.nameEn!,
+        description: finalDescription || menuItem.descriptionEn || '',
+        description_en: menuItem.descriptionEn || '',
         allergens: menuItem.allergens || '–',
         price: menuItem.price!,
         category_id: newCategory,
@@ -302,10 +313,10 @@ export default function Manage() {
       // Add new item
       const newItemData: Omit<SupabaseMenuItem, 'id' | 'created_at' | 'updated_at'> = {
         nr: 0, // Will be set by addItemWithPositionNumbering
-        name: menuItem.name!,
-        name_en: menuItem.nameEn || menuItem.name!,
-        description: menuItem.description || '',
-        description_en: menuItem.descriptionEn || menuItem.description || '',
+        name: finalName || menuItem.nameEn!,
+        name_en: menuItem.nameEn!,
+        description: finalDescription || menuItem.descriptionEn || '',
+        description_en: menuItem.descriptionEn || '',
         allergens: menuItem.allergens || '–',
         price: menuItem.price!,
         category_id: menuItem.category!,
@@ -469,39 +480,41 @@ export default function Manage() {
               </h2>
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-[#F5E6D3] mb-2">{t('manage.itemName')} *</label>
+                  <label className="block text-sm font-medium text-[#F5E6D3] mb-2">{t('manage.itemName')} (EN) *</label>
                   <input
                     type="text"
-                    value={menuItem.name}
-                    onChange={(e) => setMenuItem({ ...menuItem, name: e.target.value })}
-                    className="w-full px-4 py-2 bg-[#410704] border border-[#C7A454]/30 rounded text-[#F5E6D3]"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-[#F5E6D3] mb-2">{t('manage.itemNameEn')}</label>
-                  <input
-                    type="text"
-                    value={menuItem.nameEn}
+                    value={menuItem.nameEn || ''}
                     onChange={(e) => setMenuItem({ ...menuItem, nameEn: e.target.value })}
                     className="w-full px-4 py-2 bg-[#410704] border border-[#C7A454]/30 rounded text-[#F5E6D3]"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-[#F5E6D3] mb-2">{t('manage.itemDescription')}</label>
+                  <label className="block text-sm font-medium text-[#F5E6D3] mb-2">{t('manage.itemName')} (DE) - Auto-translated</label>
+                  <input
+                    type="text"
+                    value={menuItem.name || ''}
+                    onChange={(e) => setMenuItem({ ...menuItem, name: e.target.value })}
+                    className="w-full px-4 py-2 bg-[#410704] border border-[#C7A454]/30 rounded text-[#F5E6D3]"
+                    placeholder="Will be auto-translated from English"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-[#F5E6D3] mb-2">{t('manage.itemDescription')} (EN) *</label>
                   <textarea
-                    value={menuItem.description}
-                    onChange={(e) => setMenuItem({ ...menuItem, description: e.target.value })}
+                    value={menuItem.descriptionEn || ''}
+                    onChange={(e) => setMenuItem({ ...menuItem, descriptionEn: e.target.value })}
                     className="w-full px-4 py-2 bg-[#410704] border border-[#C7A454]/30 rounded text-[#F5E6D3]"
                     rows={3}
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-[#F5E6D3] mb-2">{t('manage.itemDescriptionEn')}</label>
+                  <label className="block text-sm font-medium text-[#F5E6D3] mb-2">{t('manage.itemDescription')} (DE) - Auto-translated</label>
                   <textarea
-                    value={menuItem.descriptionEn}
-                    onChange={(e) => setMenuItem({ ...menuItem, descriptionEn: e.target.value })}
+                    value={menuItem.description || ''}
+                    onChange={(e) => setMenuItem({ ...menuItem, description: e.target.value })}
                     className="w-full px-4 py-2 bg-[#410704] border border-[#C7A454]/30 rounded text-[#F5E6D3]"
                     rows={3}
+                    placeholder="Will be auto-translated from English"
                   />
                 </div>
                 <div>
