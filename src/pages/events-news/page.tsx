@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../home/components/Navbar';
 import Footer from '../home/components/Footer';
+import Services from '../about/components/Services';
 import { useAuth } from '../../contexts/AuthContext';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { eventService } from '../../services/eventService';
@@ -482,6 +483,9 @@ export default function EventsNews() {
           </div>
         </div>
       </section>
+
+      {/* Our Services Section */}
+      <Services />
 
       {/* Events Occurring Section */}
       <section ref={eventsRef} className="py-24 px-6 bg-[#5A0A06]">

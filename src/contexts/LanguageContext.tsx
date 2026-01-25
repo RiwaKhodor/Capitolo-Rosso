@@ -76,9 +76,9 @@ const translations: Record<string, Record<string, string>> = {
     
     'about.services.title': 'Unsere Dienstleistungen',
     'about.services.subtitle': 'Was Wir Bieten',
-    'about.services.catering': 'Catering',
+    'about.services.catering': 'Bewirtung',
     'about.services.outsideSeating': 'Außensitzplätze',
-    'about.services.takeaway': 'Takeaway',
+    'about.services.takeaway': 'Zum Mitnehmen',
     'about.services.weddingReceptions': 'Hochzeitsfeiern',
     'about.services.freeWifi': 'Kostenloses WLAN',
     

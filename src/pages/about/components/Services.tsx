@@ -39,7 +39,7 @@ export default function Services() {
       name: t('about.services.takeaway'),
     },
     {
-      icon: 'ri-ring-line',
+      icon: 'ri-hearts-line',
       name: t('about.services.weddingReceptions'),
     },
     {
@@ -49,7 +49,7 @@ export default function Services() {
   ];
 
   return (
-    <section ref={sectionRef} className="py-24 px-6 bg-[#5A0A06] relative overflow-hidden">
+    <section ref={sectionRef} className="py-24 px-6 bg-[#410704] relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -75,11 +75,11 @@ export default function Services() {
           {services.map((service, index) => (
             <div
               key={index}
-              className="flex flex-col items-center text-center group"
+              className={`flex flex-col items-center text-center group ${index === 4 ? 'col-span-2 md:col-span-1 justify-self-center' : ''}`}
               style={{ transitionDelay: `${index * 100}ms` }}
             >
-              <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mb-4 bg-gradient-to-br from-[#D4AF37] via-[#C7A454] to-[#B8941F] rounded-full transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-6">
-                <i className={`${service.icon} text-2xl md:text-3xl text-[#410704]`}></i>
+              <div className="mb-4 transform transition-all duration-300 group-hover:scale-110">
+                <i className={`${service.icon} text-4xl md:text-5xl text-transparent bg-clip-text bg-gradient-to-br from-[#D4AF37] via-[#C7A454] to-[#B8941F]`}></i>
               </div>
               <h3 className="text-sm md:text-base font-serif text-[#F5E6D3]">
                 {service.name}
