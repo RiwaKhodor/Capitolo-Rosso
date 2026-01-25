@@ -3,10 +3,6 @@ import Navbar from '../home/components/Navbar';
 import Footer from '../home/components/Footer';
 import { useLanguage } from '../../contexts/LanguageContext';
 
-// Resmio Configuration
-// Your Resmio widget ID from the dashboard
-const RESMIO_WIDGET_ID = 'capitolo-rosso-4'; // Your Resmio widget ID
-
 export default function Reservations() {
   const { t } = useLanguage();
   const [heroVisible, setHeroVisible] = useState(false);
@@ -48,45 +44,22 @@ export default function Reservations() {
 
   // Load Resmio widget script
   useEffect(() => {
-    // Wait a bit to ensure the DOM is ready
-    const timer = setTimeout(() => {
-      // Check if widget container exists
-      const widgetContainer = document.getElementById(`resmio-${RESMIO_WIDGET_ID}`);
+    // Check if Resmio script is already loaded
+    const existingScript = document.querySelector('script[src*="static.resmio.com"]');
+    
+    if (!existingScript) {
+      // Load Resmio widget script exactly as provided by Resmio
+      const script = document.createElement('script');
+      script.src = "//static.resmio.com/static/de/widget.js#id=capitolo-rosso&height=460&width=330&fontSize=14px";
       
-      if (widgetContainer) {
-        // Check if Resmio script is already loaded
-        const existingScript = document.querySelector('script[src*="static.resmio.com"]');
-        
-        if (!existingScript) {
-          // Load Resmio widget script exactly as provided by Resmio
-          const script = document.createElement('script');
-          script.type = 'text/javascript';
-          script.async = true;
-          script.src = `//static.resmio.com/static/de/widget.js#id=${RESMIO_WIDGET_ID}&height=460&width=330&fontSize=14px`;
-          
-          // Add error handling
-          script.onerror = () => {
-            console.error('Failed to load Resmio widget script');
-          };
-          
-          script.onload = () => {
-            console.log('Resmio widget script loaded successfully');
-          };
-          
-          // Insert script before the first script tag (as Resmio recommends)
-          const firstScript = document.getElementsByTagName('script')[0];
-          if (firstScript && firstScript.parentNode) {
-            firstScript.parentNode.insertBefore(script, firstScript);
-          } else {
-            document.body.appendChild(script);
-          }
-        }
+      // Insert script before the first script tag (as Resmio recommends)
+      const firstScript = document.getElementsByTagName('script')[0];
+      if (firstScript && firstScript.parentNode) {
+        firstScript.parentNode.insertBefore(script, firstScript);
+      } else {
+        document.body.appendChild(script);
       }
-    }, 500); // Increased delay to ensure DOM is fully ready
-
-    return () => {
-      clearTimeout(timer);
-    };
+    }
   }, []);
 
   return (
@@ -94,7 +67,7 @@ export default function Reservations() {
       {/* Custom CSS for Resmio Widget Styling */}
       <style>{`
         /* Ensure widget container is visible and properly sized */
-        #resmio-${RESMIO_WIDGET_ID} {
+        #resmio-capitolo-rosso {
           display: block !important;
           visibility: visible !important;
           opacity: 1 !important;
@@ -105,25 +78,25 @@ export default function Reservations() {
         }
 
         /* Change white backgrounds to dark red */
-        #resmio-${RESMIO_WIDGET_ID} * {
+        #resmio-capitolo-rosso * {
           background-color: #410704 !important;
         }
 
         /* Specific targeting for common white background elements */
-        #resmio-${RESMIO_WIDGET_ID} div,
-        #resmio-${RESMIO_WIDGET_ID} section,
-        #resmio-${RESMIO_WIDGET_ID} form,
-        #resmio-${RESMIO_WIDGET_ID} [class*="container"],
-        #resmio-${RESMIO_WIDGET_ID} [class*="modal"],
-        #resmio-${RESMIO_WIDGET_ID} [class*="widget"],
-        #resmio-${RESMIO_WIDGET_ID} [class*="box"],
-        #resmio-${RESMIO_WIDGET_ID} [class*="card"] {
+        #resmio-capitolo-rosso div,
+        #resmio-capitolo-rosso section,
+        #resmio-capitolo-rosso form,
+        #resmio-capitolo-rosso [class*="container"],
+        #resmio-capitolo-rosso [class*="modal"],
+        #resmio-capitolo-rosso [class*="widget"],
+        #resmio-capitolo-rosso [class*="box"],
+        #resmio-capitolo-rosso [class*="card"] {
           background-color: #410704 !important;
           background: #410704 !important;
         }
 
         /* Ensure iframe background is dark red */
-        #resmio-${RESMIO_WIDGET_ID} iframe {
+        #resmio-capitolo-rosso iframe {
           display: block !important;
           visibility: visible !important;
           opacity: 1 !important;
@@ -134,32 +107,32 @@ export default function Reservations() {
         }
 
         /* Override any white or light backgrounds */
-        #resmio-${RESMIO_WIDGET_ID} [style*="background-color: white"],
-        #resmio-${RESMIO_WIDGET_ID} [style*="background-color: #fff"],
-        #resmio-${RESMIO_WIDGET_ID} [style*="background-color: #ffffff"],
-        #resmio-${RESMIO_WIDGET_ID} [style*="background: white"],
-        #resmio-${RESMIO_WIDGET_ID} [style*="background: #fff"],
-        #resmio-${RESMIO_WIDGET_ID} [style*="background: #ffffff"] {
+        #resmio-capitolo-rosso [style*="background-color: white"],
+        #resmio-capitolo-rosso [style*="background-color: #fff"],
+        #resmio-capitolo-rosso [style*="background-color: #ffffff"],
+        #resmio-capitolo-rosso [style*="background: white"],
+        #resmio-capitolo-rosso [style*="background: #fff"],
+        #resmio-capitolo-rosso [style*="background: #ffffff"] {
           background-color: #410704 !important;
           background: #410704 !important;
         }
 
         /* Style input fields and selects */
-        #resmio-${RESMIO_WIDGET_ID} input,
-        #resmio-${RESMIO_WIDGET_ID} select,
-        #resmio-${RESMIO_WIDGET_ID} textarea {
+        #resmio-capitolo-rosso input,
+        #resmio-capitolo-rosso select,
+        #resmio-capitolo-rosso textarea {
           background-color: #5A0A06 !important;
           border: 1px solid rgba(199, 164, 84, 0.3) !important;
           color: #F5E6D3 !important;
         }
 
         /* Text colors */
-        #resmio-${RESMIO_WIDGET_ID} * {
+        #resmio-capitolo-rosso * {
           color: #F5E6D3 !important;
         }
 
         /* Buttons */
-        #resmio-${RESMIO_WIDGET_ID} button {
+        #resmio-capitolo-rosso button {
           background: linear-gradient(to bottom, #D4AF37, #C7A454, #B8941F) !important;
           color: #410704 !important;
           border: none !important;
@@ -229,8 +202,8 @@ export default function Reservations() {
               ref={resmioWidgetRef}
               className="w-full flex justify-center items-center min-h-[460px] relative z-0"
             >
-              {/* The widget will be injected here by Resmio script - must match exact ID format */}
-              <div id={`resmio-${RESMIO_WIDGET_ID}`} className="w-full min-h-[460px]"></div>
+              {/* The widget will be injected here by Resmio script */}
+              <div id="resmio-capitolo-rosso" className="w-full min-h-[460px]"></div>
             </div>
           </div>
         </div>
