@@ -102,9 +102,13 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
             googleButtonRef.current.innerHTML = '';
           }
           
-          // Only allow German (de) or English (en), default to English
-          // Force locale to prevent Arabic or other languages
-          const googleLocale = language === 'de' ? 'de' : 'en';
+          // Force English locale to prevent Arabic or other languages
+          // Always use 'en' to ensure English text on button
+          const googleLocale = 'en';
+          
+          // Temporarily set document language to English for Google button initialization
+          const originalLang = document.documentElement.lang;
+          document.documentElement.lang = 'en';
           
           window.google.accounts.id.initialize({
             client_id: clientId,
@@ -120,6 +124,11 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
             width: '100%',
             locale: googleLocale,
           });
+          
+          // Restore original language after button is rendered
+          setTimeout(() => {
+            document.documentElement.lang = originalLang || language;
+          }, 100);
         } else {
           if (googleButtonRef.current) {
             googleButtonRef.current.innerHTML = `
