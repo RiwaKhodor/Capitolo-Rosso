@@ -84,12 +84,12 @@ export default function ContactChannels() {
           <h2 className="text-4xl md:text-5xl font-serif text-[#F5E6D3] mb-4">
             {t('contact.channels.title')}
           </h2>
-          <div className="flex items-center justify-center gap-4 px-4 md:px-0">
-            <div className={`w-32 h-0.5 bg-gradient-to-r from-transparent via-[#D4AF37] to-[#C7A454] transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`} style={{ transitionDelay: '200ms' }}></div>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#C7A454] to-[#B8941F] font-medium text-sm tracking-widest uppercase whitespace-nowrap">
+          <div className="flex flex-wrap items-center justify-center gap-2 md:gap-4 px-4 md:px-0">
+            <div className={`w-16 md:w-32 h-0.5 bg-gradient-to-r from-transparent via-[#D4AF37] to-[#C7A454] transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`} style={{ transitionDelay: '200ms' }}></div>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#C7A454] to-[#B8941F] font-medium text-sm tracking-widest uppercase text-center">
               {t('contact.channels.subtitle')}
             </span>
-            <div className={`w-32 h-0.5 bg-gradient-to-l from-transparent via-[#D4AF37] to-[#C7A454] transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'}`} style={{ transitionDelay: '200ms' }}></div>
+            <div className={`w-16 md:w-32 h-0.5 bg-gradient-to-l from-transparent via-[#D4AF37] to-[#C7A454] transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'}`} style={{ transitionDelay: '200ms' }}></div>
           </div>
         </div>
 
