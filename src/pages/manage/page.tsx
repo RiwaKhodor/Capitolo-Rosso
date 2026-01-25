@@ -355,19 +355,25 @@ export default function Manage() {
       }
     } else {
       // Add new event
-      const added = await eventService.addEvent({
+      const eventData = {
         title: finalTitle || event.titleEn!,
         title_en: event.titleEn!,
         description: finalDescription || event.descriptionEn!,
         description_en: event.descriptionEn!,
         date: event.date!,
         time: event.time || undefined,
-      });
+      };
+      
+      console.log('Attempting to add event with data:', eventData);
+      
+      const added = await eventService.addEvent(eventData);
       
       if (added) {
         alert(t('manage.success'));
+        console.log('Event added successfully:', added);
       } else {
-        alert('Failed to add event');
+        console.error('Failed to add event. Check console for details.');
+        alert('Failed to add event. Please check the browser console for details.');
       }
     }
 

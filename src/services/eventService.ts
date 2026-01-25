@@ -32,6 +32,8 @@ export const eventService = {
 
   // Add event
   async addEvent(event: Omit<Event, 'id' | 'created_at' | 'updated_at'>): Promise<Event | null> {
+    console.log('eventService.addEvent called with:', event);
+    
     const { data, error } = await supabase
       .from('events')
       .insert(event)
@@ -40,8 +42,18 @@ export const eventService = {
     
     if (error) {
       console.error('Error adding event:', error);
+      console.error('Full error object:', JSON.stringify(error, null, 2));
+      console.error('Error details:', {
+        message: error.message,
+        details: error.details,
+        hint: error.hint,
+        code: error.code
+      });
+      console.error('Event data that was sent:', JSON.stringify(event, null, 2));
       return null;
     }
+    
+    console.log('Event added successfully:', data);
     return data;
   },
 
