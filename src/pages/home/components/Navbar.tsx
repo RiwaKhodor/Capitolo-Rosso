@@ -171,14 +171,7 @@ export default function Navbar({ scrolled }: NavbarProps) {
                   )}
                 </div>
               </>
-            ) : (
-              <Link
-                to="/login"
-                className="px-6 py-3 bg-gradient-to-b from-[#D4AF37] via-[#C7A454] to-[#B8941F] text-[#410704] rounded-md font-semibold hover:from-[#410704] hover:via-[#410704] hover:to-[#410704] hover:text-[#C7A454] transition-all duration-300 cursor-pointer text-sm whitespace-nowrap"
-              >
-                {t('nav.login')}
-              </Link>
-            )}
+            ) : null}
           </div>
 
           {/* Mobile: Language Switcher and Menu Button */}
@@ -242,17 +235,7 @@ export default function Navbar({ scrolled }: NavbarProps) {
                   </button>
                 </div>
               </>
-            ) : (
-              <div className="px-6 py-3">
-                <Link
-                  to="/login"
-                  onClick={handleMobileNavClick}
-                  className="block px-8 py-3 bg-gradient-to-b from-[#D4AF37] via-[#C7A454] to-[#B8941F] text-[#410704] text-center rounded-md font-semibold hover:from-[#410704] hover:via-[#410704] hover:to-[#410704] hover:text-[#C7A454] transition-all duration-300 cursor-pointer text-sm mx-auto max-w-xs"
-                >
-                  {t('nav.login')}
-                </Link>
-              </div>
-            )}
+            ) : null}
           </div>
         )}
       </div>

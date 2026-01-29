@@ -1,8 +1,10 @@
-
+import { Link } from 'react-router-dom';
 import { useLanguage } from '../../../contexts/LanguageContext';
+import { useAuth } from '../../../contexts/AuthContext';
 
 export default function ContactInfo() {
   const { t } = useLanguage();
+  const { user } = useAuth();
 
   const openingHours = [
     { day: t('about.contact.hours.monday'), hours: t('about.contact.hours.monday.time') },
@@ -130,17 +132,31 @@ export default function ContactInfo() {
           </div>
 
           {/* Map - Below the 2 divs on mobile, beside on desktop */}
-          <div className="rounded-lg overflow-hidden h-[200px] md:h-[300px] mt-12 md:mt-16">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2427.0145307306!2d13.404322976681907!3d52.533171272064564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a851fcbfaf2af3%3A0x17e47363e267feec!2sChoriner%20Str.%2072%2C%2010119%20Berlin%2C%20Germany!5e0!3m2!1sen!2slb!4v1769302423864!5m2!1sen!2slb"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Capitolo Rosso Location"
-            ></iframe>
+          <div className="mt-12 md:mt-16">
+            <div className="rounded-lg overflow-hidden h-[200px] md:h-[300px]">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2427.0145307306!2d13.404322976681907!3d52.533171272064564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a851fcbfaf2af3%3A0x17e47363e267feec!2sChoriner%20Str.%2072%2C%2010119%20Berlin%2C%20Germany!5e0!3m2!1sen!2slb!4v1769302423864!5m2!1sen!2slb"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Capitolo Rosso Location"
+              ></iframe>
+            </div>
+            
+            {/* Login Button - Below Map, Bottom Right */}
+            {!user && (
+              <div className="mt-6 flex justify-end">
+                <Link
+                  to="/login"
+                  className="px-6 py-3 bg-gradient-to-b from-[#D4AF37] via-[#C7A454] to-[#B8941F] text-[#410704] rounded-md font-semibold hover:from-[#410704] hover:via-[#410704] hover:to-[#410704] hover:text-[#C7A454] transition-all duration-300 cursor-pointer text-sm whitespace-nowrap shadow-lg hover:shadow-xl"
+                >
+                  {t('nav.login')}
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>
