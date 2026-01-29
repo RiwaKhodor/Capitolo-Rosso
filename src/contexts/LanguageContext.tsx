@@ -151,7 +151,7 @@ const translations: Record<string, Record<string, string>> = {
     
     // Footer
     'footer.description': 'Authentische italienische Küche, zubereitet mit Leidenschaft und Tradition seit unserer Gründung.',
-    'footer.quickLinks': 'Schnelllinks',
+    'footer.quickLinks': 'Links',
     'footer.legal': 'Rechtliches',
     'footer.contactInfo': 'Kontaktinformationen',
     'footer.impressum': 'Impressum',
@@ -522,7 +522,7 @@ const translations: Record<string, Record<string, string>> = {
     
     // Footer
     'footer.description': 'Authentic Italian cuisine crafted with passion and tradition since our founding.',
-    'footer.quickLinks': 'Quick Links',
+    'footer.quickLinks': 'Links',
     'footer.legal': 'Legal',
     'footer.contactInfo': 'Contact Info',
     'footer.impressum': 'Imprint',
