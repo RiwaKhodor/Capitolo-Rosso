@@ -28,7 +28,7 @@ export default function Footer() {
   return (
     <footer className="bg-[#410704] text-[#F5E6D3] py-16 px-6 border-t-2 border-[#C7A454]">
       <div className="max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-4 gap-12 mb-12 text-center md:text-left">
+        <div className="grid md:grid-cols-4 gap-12 mb-12 text-center">
           <div>
             <img 
               src="/logo.png" 

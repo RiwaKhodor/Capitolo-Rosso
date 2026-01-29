@@ -62,7 +62,7 @@ export default function Specialties() {
     {
       id: 'pizza',
       title: language === 'de' ? 'Pizza' : 'Pizza',
-      icon: 'ri-cake-3-line',
+      icon: 'ri-pizza-line',
       color: 'from-[#DC143C] to-[#FF6347]'
     },
     {
@@ -152,9 +152,9 @@ export default function Specialties() {
 
               {/* Icon */}
               <div 
-                className="w-20 h-20 flex items-center justify-center mb-4 transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-12"
+                className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mb-4 transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-12"
               >
-                <i className={`${category.icon} text-6xl bg-gradient-to-b from-[#D4AF37] via-[#C7A454] to-[#B8941F] bg-clip-text text-transparent transition-all duration-500 ${hoveredIndex === index ? 'scale-110' : ''}`}></i>
+                <i className={`${category.icon} text-4xl md:text-6xl bg-gradient-to-b from-[#D4AF37] via-[#C7A454] to-[#B8941F] bg-clip-text text-transparent transition-all duration-500 ${hoveredIndex === index ? 'scale-110' : ''}`}></i>
               </div>
 
               {/* Category Name */}
@@ -174,11 +174,11 @@ export default function Specialties() {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }, 100);
             }}
-            className="inline-flex items-center gap-3 bg-gradient-to-b from-[#D4AF37] via-[#C7A454] to-[#B8941F] text-[#410704] px-10 py-5 rounded-full font-semibold text-lg hover:bg-[#410704] hover:text-[#F5E6D3] hover:ring-2 hover:ring-[#C7A454] transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1 whitespace-nowrap cursor-pointer"
+            className="inline-flex flex-wrap items-center justify-center gap-3 bg-gradient-to-b from-[#D4AF37] via-[#C7A454] to-[#B8941F] text-[#410704] px-6 md:px-10 py-5 rounded-full font-semibold text-base md:text-lg hover:bg-[#410704] hover:text-[#F5E6D3] hover:ring-2 hover:ring-[#C7A454] transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1 cursor-pointer"
           >
-            <i className="ri-book-open-line text-2xl"></i>
+            <i className="ri-book-open-line text-xl md:text-2xl"></i>
             <span>{t('hero.viewFullMenu')}</span>
-            <i className="ri-arrow-right-line text-xl"></i>
+            <i className="ri-arrow-right-line text-lg md:text-xl"></i>
           </button>
         </div>
       </div>

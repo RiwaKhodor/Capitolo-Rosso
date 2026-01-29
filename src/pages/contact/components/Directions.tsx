@@ -31,9 +31,9 @@ export default function Directions() {
       icon: 'ri-subway-line',
       title: t('contact.directions.publicTransport'),
       items: [
-        'U6 Französische Straße (3 min walk)',
-        'S1, S2, S25 Friedrichstraße (5 min walk)',
-        'Bus Lines 147, 245 Friedrichstraße (2 min walk)'
+        t('contact.directions.transport.u6'),
+        t('contact.directions.transport.sBahn'),
+        t('contact.directions.transport.bus')
       ]
     },
     {

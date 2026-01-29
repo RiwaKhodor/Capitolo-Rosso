@@ -372,7 +372,7 @@ export default function MenuPage() {
     { id: 'salate', icon: 'ri-leaf-line', nameDe: 'Salate', nameEn: 'Salads' },
     { id: 'pasta', icon: 'ri-bowl-line', nameDe: 'Pasta', nameEn: 'Pasta' },
     { id: 'tagliatelle-gnocchi', icon: 'ri-restaurant-line', nameDe: 'Tagliatelle & Gnocchi', nameEn: 'Tagliatelle & Gnocchi' },
-    { id: 'pizza', icon: 'ri-cake-3-line', nameDe: 'Pizza', nameEn: 'Pizza' },
+    { id: 'pizza', icon: 'ri-pizza-line', nameDe: 'Pizza', nameEn: 'Pizza' },
     { id: 'focaccia', icon: 'ri-bread-line', nameDe: 'Focaccia', nameEn: 'Focaccia' },
     { id: 'fleischgerichte', icon: 'ri-fire-line', nameDe: 'Fleischgerichte', nameEn: 'Meat Dishes' },
     { id: 'entrecote-kalb', icon: 'ri-restaurant-line', nameDe: 'Entrecôte & Kalb', nameEn: 'Entrecôte & Veal' },
@@ -563,7 +563,7 @@ export default function MenuPage() {
           {/* Pizza */}
           <div id="pizza" className="mb-16 scroll-mt-24">
             <h3 className="text-3xl font-serif text-[#C7A454] mb-4 pb-3 border-b border-[#C7A454]/30 flex items-center gap-4">
-              <i className="ri-cake-3-line text-2xl"></i>
+              <i className="ri-pizza-line text-2xl"></i>
               <span>Pizza</span>
               <div className="flex-1 h-0.5 bg-gradient-to-r from-[#C7A454] via-[#D4AF37] to-transparent ml-4"></div>
             </h3>

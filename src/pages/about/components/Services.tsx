@@ -46,6 +46,10 @@ export default function Services() {
       icon: 'ri-wifi-line',
       name: t('about.services.freeWifi'),
     },
+    {
+      icon: 'ri-calendar-event-line',
+      name: t('about.services.events'),
+    },
   ];
 
   return (
@@ -71,11 +75,11 @@ export default function Services() {
           </div>
         </div>
 
-        <div className={`grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: '200ms' }}>
+        <div className={`grid grid-cols-2 md:grid-cols-6 gap-8 md:gap-12 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: '200ms' }}>
           {services.map((service, index) => (
             <div
               key={index}
-              className={`flex flex-col items-center text-center group ${index === 4 ? 'col-span-2 md:col-span-1 justify-self-center' : ''}`}
+              className="flex flex-col items-center text-center group"
               style={{ transitionDelay: `${index * 100}ms` }}
             >
               <div className="mb-4 transform transition-all duration-300 group-hover:scale-110">

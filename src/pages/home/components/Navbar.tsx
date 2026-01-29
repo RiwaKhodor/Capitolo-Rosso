@@ -207,7 +207,7 @@ export default function Navbar({ scrolled }: NavbarProps) {
                 key={item.path}
                 to={item.path}
                 onClick={handleMobileNavClick}
-                className="block px-6 py-3 text-[#C7A454] hover:text-[#D4AF37] hover:bg-[#410704]/5 transition-colors duration-300 cursor-pointer text-sm"
+                className="block px-6 py-3 text-[#410704] hover:text-[#D4AF37] hover:bg-[#410704]/5 transition-colors duration-300 cursor-pointer text-sm"
               >
                 {item.label}
               </Link>

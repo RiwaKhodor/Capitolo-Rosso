@@ -59,50 +59,56 @@ export default function LocationContact() {
               <div className="absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-[#C7A454]"></div>
               <div className="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-[#C7A454]"></div>
               
-              <div className="pt-8 px-8 pb-0">
-                <div className="flex items-start gap-4 mb-6">
+              <div className="pt-8 px-4 md:px-8 pb-0 text-center md:text-left">
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-4 mb-6">
                   <div className="w-10 h-10 flex items-center justify-center flex-shrink-0">
                     <i className="ri-map-pin-line text-2xl text-[#C7A454]"></i>
                   </div>
-                  <div>
-                    <h3 className="text-lg font-serif text-[#F5E6D3] mb-2">
+                  <div className="text-center md:text-left">
+                    <h3 className="text-base md:text-lg font-serif text-[#F5E6D3] mb-2">
                       {t('about.contact.address.title')}
                     </h3>
-                    <p className="text-sm text-[#F5E6D3]/80 leading-relaxed">
+                    <p className="text-sm text-[#F5E6D3]/80 leading-relaxed break-words">
                       {t('about.contact.address.line1')}<br />
                       {t('about.contact.address.line2')}
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4 mb-6">
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-4 mb-6">
                   <div className="w-10 h-10 flex items-center justify-center flex-shrink-0">
                     <i className="ri-phone-line text-2xl text-[#C7A454]"></i>
                   </div>
-                  <div>
-                    <h3 className="text-lg font-serif text-[#F5E6D3] mb-2">
+                  <div className="text-center md:text-left">
+                    <h3 className="text-base md:text-lg font-serif text-[#F5E6D3] mb-2">
                       {t('about.contact.phone.title')}
                     </h3>
+                    <p className="text-xs md:text-sm text-[#F5E6D3]/70 mb-2 break-words">
+                      {t('contact.phone.description')}
+                    </p>
                     <a 
                       href="tel:+493044058471" 
-                      className="text-sm text-[#F5E6D3]/80 hover:text-[#C7A454] transition-colors duration-300 cursor-pointer"
+                      className="text-sm text-[#F5E6D3]/80 hover:text-[#C7A454] transition-colors duration-300 cursor-pointer break-words"
                     >
                       +49 (0)30 44058471
                     </a>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4 mb-0">
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-4 mb-0">
                   <div className="w-10 h-10 flex items-center justify-center flex-shrink-0">
                     <i className="ri-mail-line text-2xl text-[#C7A454]"></i>
                   </div>
-                  <div>
-                    <h3 className="text-lg font-serif text-[#F5E6D3] mb-2">
+                  <div className="text-center md:text-left">
+                    <h3 className="text-base md:text-lg font-serif text-[#F5E6D3] mb-2">
                       {t('about.contact.email.title')}
                     </h3>
+                    <p className="text-xs md:text-sm text-[#F5E6D3]/70 mb-2 break-words">
+                      {t('contact.email.description')}
+                    </p>
                     <a 
                       href="mailto:Info@capitolo-rosso.de" 
-                      className="text-sm text-[#F5E6D3]/80 hover:text-[#C7A454] transition-colors duration-300 cursor-pointer"
+                      className="text-sm text-[#F5E6D3]/80 hover:text-[#C7A454] transition-colors duration-300 cursor-pointer break-words"
                     >
                       Info@capitolo-rosso.de
                     </a>
