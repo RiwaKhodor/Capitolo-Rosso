@@ -372,7 +372,7 @@ export default function MenuPage() {
     { id: 'salate', icon: 'ri-leaf-line', nameDe: 'Salate', nameEn: 'Salads' },
     { id: 'pasta', icon: 'ri-bowl-line', nameDe: 'Pasta', nameEn: 'Pasta' },
     { id: 'tagliatelle-gnocchi', icon: 'ri-restaurant-line', nameDe: 'Tagliatelle & Gnocchi', nameEn: 'Tagliatelle & Gnocchi' },
-    { id: 'pizza', icon: 'ri-pizza-line', nameDe: 'Pizza', nameEn: 'Pizza' },
+    { id: 'pizza', icon: 'material-symbols-outlined', iconName: 'local_pizza', nameDe: 'Pizza', nameEn: 'Pizza' },
     { id: 'focaccia', icon: 'ri-bread-line', nameDe: 'Focaccia', nameEn: 'Focaccia' },
     { id: 'fleischgerichte', icon: 'ri-fire-line', nameDe: 'Fleischgerichte', nameEn: 'Meat Dishes' },
     { id: 'entrecote-kalb', icon: 'ri-restaurant-line', nameDe: 'Entrecôte & Kalb', nameEn: 'Entrecôte & Veal' },
@@ -439,7 +439,13 @@ export default function MenuPage() {
                   onClick={() => scrollToCategory(category.id)}
                   className="group flex items-center gap-1.5 px-2.5 py-1.5 rounded-md bg-[#5A0A06]/50 hover:bg-[#5A0A06]/70 border border-[#C7A454]/20 hover:border-[#C7A454]/40 transition-all duration-300 whitespace-nowrap flex-1 min-w-0"
                 >
-                  <i className={`${category.icon} text-[#C7A454] group-hover:text-[#D4AF37] transition-colors text-lg flex-shrink-0`}></i>
+                  {category.id === 'pizza' ? (
+                    <span className={`${category.icon} text-[#C7A454] group-hover:text-[#D4AF37] transition-colors text-lg flex-shrink-0`} style={{ fontVariationSettings: '"FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48' }}>
+                      {category.iconName}
+                    </span>
+                  ) : (
+                    <i className={`${category.icon} text-[#C7A454] group-hover:text-[#D4AF37] transition-colors text-lg flex-shrink-0`}></i>
+                  )}
                   <span className="text-xs font-medium text-[#F5E6D3] group-hover:text-[#C7A454] transition-colors truncate">
                     {language === 'de' ? category.nameDe : category.nameEn}
                   </span>
@@ -473,7 +479,13 @@ export default function MenuPage() {
                       className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-[#410704] transition-colors duration-300 border-b border-[#C7A454]/10 last:border-0"
                       type="button"
                     >
-                      <i className={`${category.icon} text-[#C7A454] text-lg flex-shrink-0`}></i>
+                      {category.id === 'pizza' ? (
+                        <span className={`${category.icon} text-[#C7A454] text-lg flex-shrink-0`} style={{ fontVariationSettings: '"FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48' }}>
+                          {category.iconName}
+                        </span>
+                      ) : (
+                        <i className={`${category.icon} text-[#C7A454] text-lg flex-shrink-0`}></i>
+                      )}
                       <span className="text-sm font-medium text-[#F5E6D3]">
                         {language === 'de' ? category.nameDe : category.nameEn}
                       </span>
@@ -563,7 +575,9 @@ export default function MenuPage() {
           {/* Pizza */}
           <div id="pizza" className="mb-16 scroll-mt-24">
             <h3 className="text-3xl font-serif text-[#C7A454] mb-4 pb-3 border-b border-[#C7A454]/30 flex items-center gap-4">
-              <i className="ri-pizza-line text-2xl"></i>
+              <span className="material-symbols-outlined text-2xl text-[#C7A454]" style={{ fontVariationSettings: '"FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48' }}>
+                local_pizza
+              </span>
               <span>Pizza</span>
               <div className="flex-1 h-0.5 bg-gradient-to-r from-[#C7A454] via-[#D4AF37] to-transparent ml-4"></div>
             </h3>

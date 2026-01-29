@@ -62,7 +62,8 @@ export default function Specialties() {
     {
       id: 'pizza',
       title: language === 'de' ? 'Pizza' : 'Pizza',
-      icon: 'ri-pizza-line',
+      icon: 'material-symbols-outlined',
+      iconName: 'local_pizza',
       color: 'from-[#DC143C] to-[#FF6347]'
     },
     {
@@ -154,7 +155,13 @@ export default function Specialties() {
               <div 
                 className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mb-4 transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-12"
               >
-                <i className={`${category.icon} text-4xl md:text-6xl bg-gradient-to-b from-[#D4AF37] via-[#C7A454] to-[#B8941F] bg-clip-text text-transparent transition-all duration-500 ${hoveredIndex === index ? 'scale-110' : ''}`}></i>
+                {category.id === 'pizza' ? (
+                  <span className={`${category.icon} text-4xl md:text-6xl bg-gradient-to-b from-[#D4AF37] via-[#C7A454] to-[#B8941F] bg-clip-text text-transparent transition-all duration-500 ${hoveredIndex === index ? 'scale-110' : ''}`} style={{ fontVariationSettings: '"FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48' }}>
+                    {category.iconName}
+                  </span>
+                ) : (
+                  <i className={`${category.icon} text-4xl md:text-6xl bg-gradient-to-b from-[#D4AF37] via-[#C7A454] to-[#B8941F] bg-clip-text text-transparent transition-all duration-500 ${hoveredIndex === index ? 'scale-110' : ''}`}></i>
+                )}
               </div>
 
               {/* Category Name */}
