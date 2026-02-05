@@ -24,7 +24,7 @@ export default function Login() {
   const [error, setError] = useState('');
   const [isLogin, setIsLogin] = useState(true);
   const [name, setName] = useState('');
-  const { login, register, loginWithGoogle, user } = useAuth();
+  const { login, register, loginWithGoogle, logout, user } = useAuth();
   const { t, language } = useLanguage();
   const navigate = useNavigate();
   const googleButtonRef = useRef<HTMLDivElement>(null);
@@ -39,13 +39,15 @@ export default function Login() {
         if (currentUser.isAdmin) {
           navigate('/manage');
         } else {
-          navigate('/');
+          // User is not an admin - log them out and show error
+          logout();
+          setError('Only administrators can log in.');
         }
       } else {
         setError(t('login.googleFailed'));
       }
     }
-  }, [loginWithGoogle, navigate, t]);
+  }, [loginWithGoogle, logout, navigate, t]);
 
   useEffect(() => {
     // Load Google Identity Services script
@@ -136,7 +138,9 @@ export default function Login() {
         if (currentUser.isAdmin) {
           navigate('/manage');
         } else {
-          navigate('/');
+          // User is not an admin - log them out and show error
+          logout();
+          setError('Only administrators can log in.');
         }
       } else {
         setError(t('login.invalidCredentials'));
@@ -153,7 +157,9 @@ export default function Login() {
         if (currentUser.isAdmin) {
           navigate('/manage');
         } else {
-          navigate('/');
+          // User is not an admin - log them out and show error
+          logout();
+          setError('Only administrators can register.');
         }
       } else {
         setError(t('login.emailExists'));

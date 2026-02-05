@@ -26,9 +26,9 @@ const translations: Record<string, Record<string, string>> = {
     
     // About Section
     'about.title': 'Über Capitolo Rosso',
-    'about.p1': 'Willkommen im Capitolo Rosso, wo französische Eleganz auf kulinarische Exzellenz im Herzen Berlins trifft. Unser Restaurant ist eine Feier traditioneller französischer Kochtechniken, erstklassiger Zutaten und raffinierter Gastfreundschaft.',
-    'about.p2': 'Seit unserer Gründung widmen wir uns der Aufgabe, unseren Gästen die authentischen Aromen Frankreichs näherzubringen. Jedes Gericht wird mit Leidenschaft zubereitet, unter Verwendung klassischer französischer Rezepte und feinster Zutaten von lokalen Märkten und französischen Lieferanten.',
-    'about.p3': 'Unsere talentierten Köche bringen jahrelange Erfahrung aus renommierten französischen Küchen mit und kreieren exquisite Gerichte, die französische kulinarische Traditionen ehren und gleichzeitig moderne Innovationen aufgreifen. Begleiten Sie uns zu einem unvergesslichen kulinarischen Erlebnis.',
+    'about.p1': 'Willkommen im Capitolo Rosso, wo italienische Eleganz auf kulinarische Exzellenz im Herzen Berlins trifft. Unser Restaurant ist eine Feier traditioneller italienischer Kochtechniken, erstklassiger Zutaten und raffinierter Gastfreundschaft.',
+    'about.p2': 'Seit unserer Gründung widmen wir uns der Aufgabe, unseren Gästen die authentischen Aromen Italiens näherzubringen. Jedes Gericht wird mit Leidenschaft zubereitet, unter Verwendung klassischer italienischer Rezepte und feinster Zutaten von lokalen Märkten und italienischen Lieferanten.',
+    'about.p3': 'Unsere talentierten Köche bringen jahrelange Erfahrung aus renommierten italienischen Küchen mit und kreieren exquisite Gerichte, die italienische kulinarische Traditionen ehren und gleichzeitig moderne Innovationen aufgreifen. Begleiten Sie uns zu einem unvergesslichen kulinarischen Erlebnis.',
     
     // About Page
     'about.hero.title': 'Über Uns',
@@ -110,6 +110,8 @@ const translations: Record<string, Record<string, string>> = {
     'contact.hero.title': 'Kontakt',
     'contact.hero.subtitle': 'Kontaktieren Sie Uns',
     'contact.hero.description': 'Wir freuen uns darauf, von Ihnen zu hören. Kontaktieren Sie uns für Reservierungen, Fragen oder besondere Anfragen.',
+    'contact.phone.description': 'Für direkte Anfragen und Reservierungen',
+    'contact.email.description': 'Für besondere Anfragen und Anfragen',
     'contact.channels.title': 'Kontaktkanäle',
     'contact.channels.subtitle': 'Wählen Sie Ihre bevorzugte Kontaktmethode',
     'contact.location.title': 'Unsere Lage',
@@ -481,6 +483,8 @@ const translations: Record<string, Record<string, string>> = {
     'contact.hero.title': 'Contact',
     'contact.hero.subtitle': 'Contact Us',
     'contact.hero.description': 'We\'d love to hear from you. Reach out for reservations, questions, or special requests.',
+    'contact.phone.description': 'For direct inquiries and reservations',
+    'contact.email.description': 'For special requests and inquiries',
     'contact.channels.title': 'Contact Channels',
     'contact.channels.subtitle': 'Choose Your Preferred Way to Reach Us',
     'contact.location.title': 'Our Location',

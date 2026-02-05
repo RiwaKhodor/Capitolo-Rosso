@@ -5,7 +5,17 @@ import { useEffect, useRef, useState } from 'react';
 export default function Hero() {
   const { t } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -29,7 +39,7 @@ export default function Hero() {
 
       {/* Navbar */}
       <div className="absolute top-0 left-0 right-0 z-20">
-        <Navbar />
+        <Navbar scrolled={scrolled} />
       </div>
 
       {/* Content */}

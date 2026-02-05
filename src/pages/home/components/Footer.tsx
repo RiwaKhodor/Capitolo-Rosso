@@ -29,11 +29,11 @@ export default function Footer() {
     <footer className="bg-[#410704] text-[#F5E6D3] py-16 px-6 border-t-2 border-[#C7A454]">
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-4 gap-12 mb-12 text-center">
-          <div>
+          <div className="flex flex-col items-center">
             <img 
               src="/logo.png" 
               alt="Capitolo Rosso" 
-              className="h-16 w-auto mb-6 mx-auto md:mx-0"
+              className="h-16 w-auto mb-6 mx-auto"
             />
             <p className="text-sm leading-relaxed">
               {t('footer.description')}

@@ -7,10 +7,20 @@ export default function Reservations() {
   const { t } = useLanguage();
   const [heroVisible, setHeroVisible] = useState(false);
   const [occasionsVisible, setOccasionsVisible] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
   const occasionsRef = useRef<HTMLDivElement>(null);
   const resmioWidgetRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     const heroEl = heroRef.current;
@@ -150,7 +160,7 @@ export default function Reservations() {
 
         {/* Navbar */}
         <div className="absolute top-0 left-0 right-0 z-20">
-          <Navbar />
+          <Navbar scrolled={scrolled} />
         </div>
 
         {/* Content */}
@@ -229,10 +239,10 @@ export default function Reservations() {
               <div className="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-[#C7A454]"></div>
               <div className="p-6 space-y-3">
                 <div className="flex items-center gap-4">
-                  <div className="w-16 h-16 flex items-center justify-center flex-shrink-0">
-                    <i className="ri-cake-3-line text-5xl text-[#C7A454]"></i>
+                  <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center flex-shrink-0">
+                    <i className="ri-cake-3-line text-3xl md:text-5xl text-[#C7A454]"></i>
                   </div>
-                  <h3 className="text-2xl font-serif text-[#F5E6D3]">
+                  <h3 className="text-xl md:text-2xl font-serif text-[#F5E6D3]">
                     {t('reservations.occasions.private.title')}
                   </h3>
                 </div>
@@ -264,10 +274,10 @@ export default function Reservations() {
               <div className="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-[#C7A454]"></div>
               <div className="p-6 space-y-3">
                 <div className="flex items-center gap-4">
-                  <div className="w-16 h-16 flex items-center justify-center flex-shrink-0">
-                    <i className="ri-briefcase-line text-5xl text-[#C7A454]"></i>
+                  <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center flex-shrink-0">
+                    <i className="ri-briefcase-line text-3xl md:text-5xl text-[#C7A454]"></i>
                   </div>
-                  <h3 className="text-2xl font-serif text-[#F5E6D3]">
+                  <h3 className="text-xl md:text-2xl font-serif text-[#F5E6D3]">
                     {t('reservations.occasions.corporate.title')}
                   </h3>
                 </div>
@@ -299,10 +309,10 @@ export default function Reservations() {
               <div className="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-[#C7A454]"></div>
               <div className="p-6 space-y-3">
                 <div className="flex items-center gap-4">
-                  <div className="w-16 h-16 flex items-center justify-center flex-shrink-0">
-                    <i className="ri-heart-3-line text-5xl text-[#C7A454]"></i>
+                  <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center flex-shrink-0">
+                    <i className="ri-heart-3-line text-3xl md:text-5xl text-[#C7A454]"></i>
                   </div>
-                  <h3 className="text-2xl font-serif text-[#F5E6D3]">
+                  <h3 className="text-xl md:text-2xl font-serif text-[#F5E6D3]">
                     {t('reservations.occasions.wedding.title')}
                   </h3>
                 </div>

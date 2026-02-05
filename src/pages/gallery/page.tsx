@@ -104,7 +104,7 @@ export default function Gallery() {
           </h1>
           <div className="w-24 h-1 bg-gradient-to-r from-[#D4AF37] via-[#C7A454] to-[#B8941F] mx-auto mb-8"></div>
           
-          <p className="text-lg text-[#F5E6D3]/90 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base md:text-lg text-[#F5E6D3]/90 max-w-2xl mx-auto leading-relaxed px-4 md:px-0 break-words">
             {t('gallery.hero.description')}
           </p>
         </div>
