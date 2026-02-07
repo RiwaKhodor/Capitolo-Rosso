@@ -1,7 +1,14 @@
 import { useLanguage } from '../../../contexts/LanguageContext';
+import { useAuth } from '../../../contexts/AuthContext';
 
 export default function Team() {
   const { t } = useLanguage();
+  const { user } = useAuth();
+
+  // Only show team section to admins
+  if (!user || !user.isAdmin) {
+    return null;
+  }
 
   const teamMembers = [
     {

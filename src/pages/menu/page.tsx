@@ -442,7 +442,10 @@ export default function MenuPage() {
                   className="group flex items-center gap-1.5 px-2.5 py-1.5 rounded-md bg-[#5A0A06]/50 hover:bg-[#5A0A06]/70 border border-[#C7A454]/20 hover:border-[#C7A454]/40 transition-all duration-300 whitespace-nowrap flex-1 min-w-0"
                 >
                   {category.id === 'pizza' || category.id === 'pasta' ? (
-                    <span className={`${category.icon} text-[#C7A454] group-hover:text-[#D4AF37] transition-colors text-lg flex-shrink-0`}>
+                    <span 
+                      className={`${category.icon} text-[#C7A454] group-hover:text-[#D4AF37] transition-colors text-lg flex-shrink-0`}
+                      style={{ fontFamily: "'Material Symbols Outlined', sans-serif" }}
+                    >
                       {category.iconName}
                     </span>
                   ) : (
@@ -482,7 +485,10 @@ export default function MenuPage() {
                       type="button"
                     >
                       {category.id === 'pizza' || category.id === 'pasta' ? (
-                        <span className={`${category.icon} text-[#C7A454] text-lg flex-shrink-0`}>
+                        <span 
+                          className={`${category.icon} text-[#C7A454] text-lg flex-shrink-0`}
+                          style={{ fontFamily: "'Material Symbols Outlined', sans-serif" }}
+                        >
                           {category.iconName}
                         </span>
                       ) : (
@@ -547,7 +553,10 @@ export default function MenuPage() {
           {/* Pasta */}
           <div id="pasta" className="mb-16 scroll-mt-24">
             <h3 className="text-3xl font-serif text-[#C7A454] mb-8 pb-3 border-b border-[#C7A454]/30 flex items-center gap-4">
-              <span className="material-symbols-outlined text-2xl text-[#C7A454]">
+              <span 
+                className="material-symbols-outlined text-2xl text-[#C7A454]"
+                style={{ fontFamily: "'Material Symbols Outlined', sans-serif" }}
+              >
                 dinner_dining
               </span>
               <span>Pasta</span>
@@ -579,7 +588,10 @@ export default function MenuPage() {
           {/* Pizza */}
           <div id="pizza" className="mb-16 scroll-mt-24">
             <h3 className="text-3xl font-serif text-[#C7A454] mb-4 pb-3 border-b border-[#C7A454]/30 flex items-center gap-4">
-              <span className="material-symbols-outlined text-2xl text-[#C7A454]">
+              <span 
+                className="material-symbols-outlined text-2xl text-[#C7A454]"
+                style={{ fontFamily: "'Material Symbols Outlined', sans-serif" }}
+              >
                 local_pizza
               </span>
               <span>Pizza</span>

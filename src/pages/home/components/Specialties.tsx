@@ -157,7 +157,10 @@ export default function Specialties() {
                 className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mb-4 transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-12"
               >
                 {(category.id === 'pizza' || category.id === 'pasta') && category.iconName ? (
-                  <span className={`${category.icon} text-4xl md:text-6xl bg-gradient-to-b from-[#D4AF37] via-[#C7A454] to-[#B8941F] bg-clip-text text-transparent transition-all duration-500 ${hoveredIndex === index ? 'scale-110' : ''}`}>
+                  <span 
+                    className={`${category.icon} text-4xl md:text-6xl bg-gradient-to-b from-[#D4AF37] via-[#C7A454] to-[#B8941F] bg-clip-text text-transparent transition-all duration-500 ${hoveredIndex === index ? 'scale-110' : ''}`}
+                    style={{ fontFamily: "'Material Symbols Outlined', sans-serif" }}
+                  >
                     {category.iconName}
                   </span>
                 ) : (

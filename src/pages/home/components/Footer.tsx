@@ -97,16 +97,16 @@ export default function Footer() {
           <div className="text-center md:text-left">
             <h4 className="text-[#C7A454] font-semibold mb-4 text-sm">{t('footer.contactInfo')}</h4>
             <ul className="space-y-3">
-              <li className="flex items-center justify-center md:items-start md:justify-start">
-                <i className="ri-phone-line text-[#C7A454] mr-3 flex-shrink-0"></i>
+              <li className="flex flex-col md:flex-row items-center justify-center md:items-start md:justify-start">
+                <i className="ri-phone-line text-[#C7A454] mb-2 md:mb-0 md:mr-3 flex-shrink-0"></i>
                 <a href="tel:+493044058471" className="text-sm hover:text-[#C7A454] transition-colors">+49 (0)30 44058471</a>
               </li>
-              <li className="flex items-center justify-center md:items-start md:justify-start">
-                <i className="ri-mail-line text-[#C7A454] mr-3 flex-shrink-0"></i>
+              <li className="flex flex-col md:flex-row items-center justify-center md:items-start md:justify-start">
+                <i className="ri-mail-line text-[#C7A454] mb-2 md:mb-0 md:mr-3 flex-shrink-0"></i>
                 <a href="mailto:Info@capitolo-rosso.de" className="text-sm hover:text-[#C7A454] transition-colors">Info@capitolo-rosso.de</a>
               </li>
-              <li className="flex items-center justify-center md:items-start md:justify-start">
-                <i className="ri-map-pin-line text-[#C7A454] mr-3 flex-shrink-0"></i>
+              <li className="flex flex-col md:flex-row items-center justify-center md:items-start md:justify-start">
+                <i className="ri-map-pin-line text-[#C7A454] mb-2 md:mb-0 md:mr-3 flex-shrink-0"></i>
                 <span className="text-sm text-center md:text-left">Choriner Straße 72<br />Ecke Zionskirchstraße<br />10119 Berlin<br />Germany</span>
               </li>
             </ul>

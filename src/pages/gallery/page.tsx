@@ -6,6 +6,7 @@ import { useLanguage } from '../../contexts/LanguageContext';
 export default function Gallery() {
   const { t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const [heroVisible, setHeroVisible] = useState(false);
   const [visibleSections, setVisibleSections] = useState<Record<string, boolean>>({});
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
@@ -14,6 +15,7 @@ export default function Gallery() {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
+      setShowScrollTop(window.scrollY > 300);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -307,6 +309,19 @@ export default function Gallery() {
       </section>
 
       <Footer />
+      
+      {/* Scroll to Top Button */}
+      {showScrollTop && (
+        <button
+          onClick={() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          className="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-b from-[#D4AF37] via-[#C7A454] to-[#B8941F] text-[#410704] rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 z-50"
+          aria-label="Scroll to top"
+        >
+          <i className="ri-arrow-up-line text-2xl"></i>
+        </button>
+      )}
     </div>
   );
 }
