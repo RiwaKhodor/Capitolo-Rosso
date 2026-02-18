@@ -183,63 +183,40 @@ export default function Gallery() {
             </p>
           </div>
 
+          {/* Use all real photos from public/gallery */}
           <div className="grid grid-cols-12 gap-6">
-            {/* Three Images Top Row */}
-            <div className={`col-span-12 md:col-span-4 transition-all duration-1000 ${visibleSections['culinary'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl group aspect-square md:h-[350px] md:aspect-auto">
-                <img 
-                  src="https://readdy.ai/api/search-image?query=Artistically%20plated%20authentic%20Italian%20pasta%20dish%20with%20fresh%20ingredients%20elegant%20presentation%20golden%20lighting%20burgundy%20red%20accents%20and%20sophisticated%20culinary%20excellence%20on%20simple%20clean%20white%20background&width=600&height=600&seq=gallery-food-pasta-001&orientation=squarish" 
-                  alt="Pasta Dish" 
-                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#410704]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            {[
+              '/gallery/DSC04211.jpeg',
+              '/gallery/DSC04190.jpeg',
+              '/gallery/DSC04185.jpeg',
+              '/gallery/DSC04169.jpeg',
+              '/gallery/DSC04110.jpeg',
+              '/gallery/DSC03941.jpeg',
+              '/gallery/DSC03927.jpeg',
+              '/gallery/DSC03924.jpeg',
+              '/gallery/DSC03798.jpeg',
+              '/gallery/DSC03760.jpeg',
+              '/gallery/DSC03717.jpeg',
+            ].map((src, index) => (
+              <div
+                key={src}
+                className={`col-span-12 sm:col-span-6 md:col-span-4 transition-all duration-1000 ${
+                  visibleSections['culinary']
+                    ? 'opacity-100 translate-y-0'
+                    : 'opacity-0 translate-y-10'
+                }`}
+                style={{ transitionDelay: visibleSections['culinary'] ? `${index * 80}ms` : '0ms' }}
+              >
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl group aspect-square md:h-[350px] md:aspect-auto">
+                  <img
+                    src={src}
+                    alt="Culinary creation"
+                    className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#410704]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
               </div>
-            </div>
-
-            <div className={`col-span-12 md:col-span-4 transition-all duration-1000 delay-200 ${visibleSections['culinary'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl group aspect-square md:h-[350px] md:aspect-auto">
-                <img 
-                  src="https://readdy.ai/api/search-image?query=Gourmet%20wood-fired%20Italian%20pizza%20with%20fresh%20mozzarella%20basil%20tomatoes%20elegant%20presentation%20golden%20crust%20burgundy%20red%20accents%20and%20artisanal%20culinary%20craftsmanship%20on%20simple%20clean%20white%20background&width=600&height=600&seq=gallery-food-pizza-002&orientation=squarish" 
-                  alt="Pizza" 
-                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#410704]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              </div>
-            </div>
-
-            <div className={`col-span-12 md:col-span-4 transition-all duration-1000 delay-300 ${visibleSections['culinary'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl group aspect-square md:h-[350px] md:aspect-auto">
-                <img 
-                  src="https://readdy.ai/api/search-image?query=Exquisite%20Italian%20dessert%20tiramisu%20with%20elegant%20plating%20golden%20accents%20burgundy%20red%20garnish%20sophisticated%20presentation%20and%20refined%20culinary%20artistry%20on%20simple%20clean%20white%20background&width=600&height=600&seq=gallery-food-dessert-003&orientation=squarish" 
-                  alt="Dessert" 
-                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#410704]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              </div>
-            </div>
-
-            {/* Two Images Bottom Row */}
-            <div className={`col-span-12 md:col-span-6 transition-all duration-1000 delay-400 ${visibleSections['culinary'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl group aspect-square md:h-[400px] md:aspect-auto">
-                <img 
-                  src="https://readdy.ai/api/search-image?query=Beautifully%20presented%20Italian%20seafood%20risotto%20with%20fresh%20ingredients%20elegant%20plating%20golden%20saffron%20burgundy%20red%20accents%20and%20sophisticated%20culinary%20excellence%20on%20simple%20clean%20white%20background&width=800&height=600&seq=gallery-food-risotto-004&orientation=landscape" 
-                  alt="Risotto" 
-                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#410704]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              </div>
-            </div>
-
-            <div className={`col-span-12 md:col-span-6 transition-all duration-1000 delay-500 ${visibleSections['culinary'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl group aspect-square md:h-[400px] md:aspect-auto">
-                <img 
-                  src="https://readdy.ai/api/search-image?query=Gourmet%20Italian%20meat%20dish%20with%20elegant%20presentation%20golden%20lighting%20burgundy%20red%20wine%20sauce%20fresh%20herbs%20and%20refined%20culinary%20artistry%20on%20simple%20clean%20white%20background&width=800&height=600&seq=gallery-food-meat-005&orientation=landscape" 
-                  alt="Main Course" 
-                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#410704]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
