@@ -49,13 +49,20 @@ export default function ContactForm() {
         // Try to get error message from response
         let errorMessage = `Server error: ${response.status} ${response.statusText}`;
         try {
-          const errorData = await response.json();
-          errorMessage = errorData.error || errorData.details || errorMessage;
-        } catch (e) {
-          // If response is not JSON, use status text
           const text = await response.text();
-          errorMessage = text || errorMessage;
+          if (text) {
+            try {
+              const errorData = JSON.parse(text);
+              errorMessage = errorData.error || errorData.details || errorMessage;
+            } catch (parseErr) {
+              // If not JSON, use the text as error message
+              errorMessage = text || errorMessage;
+            }
+          }
+        } catch (e) {
+          console.error('Error reading error response:', e);
         }
+        console.error('API Error:', errorMessage);
         throw new Error(errorMessage);
       }
 
@@ -94,8 +101,10 @@ export default function ContactForm() {
       let errorMessage = 'Error sending email. Please try again later or contact us directly.';
       
       if (error instanceof Error) {
+        // Use the actual error message from the API
         errorMessage = error.message;
-        // Provide user-friendly messages for common errors
+        
+        // Only use generic messages for network/connection errors
         if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
           errorMessage = language === 'de' 
             ? 'Verbindungsfehler. Bitte überprüfen Sie Ihre Internetverbindung.'
@@ -105,6 +114,7 @@ export default function ContactForm() {
             ? 'API nicht konfiguriert. Bitte kontaktieren Sie den Administrator.'
             : 'API not configured. Please contact the administrator.';
         }
+        // For all other errors (including API error messages), show the actual message
       }
       
       setErrorMessage(errorMessage);
