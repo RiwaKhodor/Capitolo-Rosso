@@ -52,6 +52,8 @@ export default function Hero() {
               src="/logo.png" 
               alt="Capitolo Rosso" 
               className="h-32 md:h-40 lg:h-48 w-auto drop-shadow-2xl mx-auto"
+              fetchPriority="high"
+              decoding="async"
             />
           </div>
 
@@ -66,6 +68,8 @@ export default function Hero() {
               src="/logo.png" 
               alt="Capitolo Rosso" 
               className="h-32 w-auto drop-shadow-2xl"
+              fetchPriority="high"
+              decoding="async"
             />
           </div>
           

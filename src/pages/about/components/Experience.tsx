@@ -113,6 +113,8 @@ export default function Experience() {
                 src="/interior/DSC04042%281%29.jpeg" 
                 alt="Restaurant Experience" 
                 className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="absolute -top-6 -left-6 w-full h-full border-2 border-[#C7A454] rounded-lg -z-10"></div>

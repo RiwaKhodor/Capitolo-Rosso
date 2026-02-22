@@ -424,7 +424,8 @@ export default function EventsNews() {
                   src="/interior/image.png"
                   alt="Restaurant Services"
                   className="w-full h-full object-cover object-center"
-                  loading="eager"
+                  loading="lazy"
+                  decoding="async"
                   onError={(e) => {
                     console.error('Failed to load image:', '/interior/image.png');
                     (e.target as HTMLImageElement).style.display = 'none';
