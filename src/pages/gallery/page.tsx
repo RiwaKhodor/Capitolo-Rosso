@@ -138,7 +138,7 @@ export default function Gallery() {
             <div className={`col-span-12 md:col-span-7 transition-all duration-1000 ${visibleSections['interior'] ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'}`}>
               <div className="relative rounded-2xl overflow-hidden shadow-2xl group aspect-square md:h-[600px] md:aspect-auto">
                 <img 
-                  src="/interior/DSC04042(1).jpeg" 
+                  src="/interior/DSC04042%281%29.jpeg" 
                   alt="Restaurant Interior" 
                   className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
                 />

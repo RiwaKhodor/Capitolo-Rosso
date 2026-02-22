@@ -425,6 +425,10 @@ export default function EventsNews() {
                   alt="Restaurant Services"
                   className="w-full h-full object-cover object-center"
                   loading="eager"
+                  onError={(e) => {
+                    console.error('Failed to load image:', '/interior/image.png');
+                    (e.target as HTMLImageElement).style.display = 'none';
+                  }}
                 />
               </div>
               <div className="absolute -top-2 -left-2 md:-top-6 md:-left-6 w-full h-full border border-[#C7A454] md:border-2 rounded-lg -z-10"></div>
