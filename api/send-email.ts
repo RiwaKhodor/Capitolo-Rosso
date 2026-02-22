@@ -5,26 +5,26 @@ export default async function handler(
   request: VercelRequest,
   response: VercelResponse,
 ) {
-  // Enable CORS
-  response.setHeader('Access-Control-Allow-Origin', '*');
-  response.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
-  if (request.method === 'OPTIONS') {
-    return response.status(200).end();
-  }
-
-  if (request.method !== 'POST') {
-    return response.status(405).json({ error: 'Method not allowed' });
-  }
-
-  const { name, email, phone, subject, message } = request.body;
-
-  if (!name || !email || !message) {
-    return response.status(400).json({ error: 'Missing required fields' });
-  }
-
   try {
+    // Enable CORS
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    response.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+    if (request.method === 'OPTIONS') {
+      return response.status(200).end();
+    }
+
+    if (request.method !== 'POST') {
+      return response.status(405).json({ error: 'Method not allowed' });
+    }
+
+    const { name, email, phone, subject, message } = request.body;
+
+    if (!name || !email || !message) {
+      return response.status(400).json({ error: 'Missing required fields' });
+    }
+
     // Create transporter using SMTP
     // Environment variables must be set in Vercel Dashboard:
     // SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS
@@ -34,6 +34,7 @@ export default async function handler(
       console.error('Missing SMTP environment variables');
       return response.status(500).json({ 
         error: 'Email service not configured. Please set SMTP environment variables in Vercel.',
+        details: 'SMTP_HOST, SMTP_PORT, SMTP_USER, and SMTP_PASS must be set',
       });
     }
 
@@ -86,6 +87,7 @@ export default async function handler(
     return response.status(200).json({ success: true, message: 'Email sent successfully' });
   } catch (error: any) {
     console.error('Error sending email:', error);
+    console.error('Error stack:', error.stack);
     
     // Provide more detailed error information
     let errorMessage = 'Failed to send email';
