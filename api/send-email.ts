@@ -82,9 +82,27 @@ export default async function handler(
     return response.status(200).json({ success: true, message: 'Email sent successfully' });
   } catch (error: any) {
     console.error('Error sending email:', error);
+    
+    // Provide more detailed error information
+    let errorMessage = 'Failed to send email';
+    let errorDetails = error.message || 'Unknown error';
+    
+    // Check for specific error types
+    if (error.code === 'EAUTH') {
+      errorMessage = 'Authentication failed. Please check your email credentials.';
+      errorDetails = 'Invalid username or password';
+    } else if (error.code === 'ECONNECTION' || error.code === 'ETIMEDOUT') {
+      errorMessage = 'Connection failed. Please check your SMTP settings.';
+      errorDetails = `Cannot connect to ${process.env.SMTP_HOST || 'SMTP server'}`;
+    } else if (error.code === 'EENVELOPE') {
+      errorMessage = 'Invalid email address.';
+      errorDetails = error.message;
+    }
+    
     return response.status(500).json({ 
-      error: 'Failed to send email',
-      details: error.message 
+      error: errorMessage,
+      details: errorDetails,
+      code: error.code || 'UNKNOWN'
     });
   }
 }

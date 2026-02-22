@@ -56,16 +56,22 @@ export default function ContactForm() {
           message: ''
         });
       } else {
-        throw new Error(data.error || 'Failed to send email');
+        // Show the actual error message from the API
+        const errorMsg = data.error || data.details || 'Failed to send email';
+        throw new Error(errorMsg);
       }
     } catch (error) {
       console.error('Error sending email:', error);
       setSubmitStatus('error');
-      setErrorMessage(
-        language === 'de' 
+      
+      // Show the actual error message if available
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : (language === 'de' 
           ? 'Fehler beim Senden der E-Mail. Bitte versuchen Sie es später erneut oder kontaktieren Sie uns direkt.'
-          : 'Error sending email. Please try again later or contact us directly.'
-      );
+          : 'Error sending email. Please try again later or contact us directly.');
+      
+      setErrorMessage(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
