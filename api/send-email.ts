@@ -49,9 +49,13 @@ export default async function handler(
 
     // Email content
     const emailSubject = subject && subject.trim() ? subject : 'No Subject';
+    // Use SMTP_USER for 'from' to ensure consistency, fallback to lowercase email
+    const fromEmail = process.env.SMTP_USER || 'info@capitolo-rosso.de';
+    const toEmail = process.env.SMTP_USER || 'info@capitolo-rosso.de';
+    
     const mailOptions = {
-      from: `"${name}" <Info@capitolo-rosso.de>`,
-      to: 'Info@capitolo-rosso.de',
+      from: `"${name}" <${fromEmail}>`,
+      to: toEmail,
       replyTo: email,
       subject: `Contact Form: ${emailSubject}`,
       html: `
