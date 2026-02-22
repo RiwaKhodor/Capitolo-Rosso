@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Footer from '../home/components/Footer';
 import Hero from './components/Hero';
 import ContactChannels from './components/ContactChannels';
+import ContactForm from './components/ContactForm';
 import LocationContact from './components/LocationContact';
 import Directions from './components/Directions';
 
@@ -21,6 +22,7 @@ export default function Contact() {
     <div className="min-h-screen bg-[#410704]">
       <Hero />
       <ContactChannels />
+      <ContactForm />
       <LocationContact />
       <Directions />
       <Footer />

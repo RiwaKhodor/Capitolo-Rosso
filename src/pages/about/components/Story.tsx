@@ -46,15 +46,15 @@ export default function Story() {
           <div className={`relative transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'}`}>
             <div className="w-full aspect-square md:h-[500px] rounded-lg overflow-hidden">
               <img 
-                src="https://readdy.ai/api/search-image?query=charming%20vintage%20bookstore%20wine%20bar%20interior%20called%20vino%20e%20libri%20with%20wooden%20bookshelves%20filled%20with%20books%20wine%20bottles%20cozy%20warm%20lighting%20rustic%20european%20atmosphere%20berlin%20style%20intimate%20cultural%20space%20burgundy%20and%20cream%20tones%20nostalgic%20ambiance&width=600&height=800&seq=story-vino-libri&orientation=portrait" 
-                alt="Vino e Libri" 
+                src="/interior/DSC04042%281%29.jpeg" 
+                alt="A Culinary Journey Through Italy" 
                 className="w-full h-full object-cover"
               />
             </div>
             <div className={`absolute -bottom-6 -right-6 w-48 h-48 rounded-lg overflow-hidden transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               <img 
-                src="https://readdy.ai/api/search-image?query=elegant%20french%20wine%20bottle%20with%20red%20wine%20glass%20on%20dark%20burgundy%20background%20sophisticated%20restaurant%20setting%20warm%20golden%20lighting%20luxury%20dining%20atmosphere%20bordeaux%20wine%20premium%20quality%20refined%20composition&width=400&height=400&seq=story-wine-accent&orientation=squarish" 
-                alt="Wine Glass" 
+                src="/gallery/DSC03816.jpeg" 
+                alt="A Culinary Journey Through Italy" 
                 className="w-full h-full object-cover"
               />
             </div>

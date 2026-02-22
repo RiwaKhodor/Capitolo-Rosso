@@ -36,6 +36,12 @@ export default function Specialties() {
       color: 'from-[#8B4513] to-[#A0522D]'
     },
     {
+      id: 'focaccia',
+      title: language === 'de' ? 'Focaccia' : 'Focaccia',
+      icon: 'ri-bread-line',
+      color: 'from-[#D2691E] to-[#CD853F]'
+    },
+    {
       id: 'antipasti',
       title: language === 'de' ? 'Antipasti' : 'Appetizers',
       icon: 'ri-restaurant-2-line',
@@ -68,20 +74,20 @@ export default function Specialties() {
       color: 'from-[#DC143C] to-[#FF6347]'
     },
     {
-      id: 'focaccia',
-      title: language === 'de' ? 'Focaccia' : 'Focaccia',
-      icon: 'ri-bread-line',
-      color: 'from-[#D2691E] to-[#CD853F]'
-    },
-    {
       id: 'fleischgerichte',
       title: language === 'de' ? 'Fleischgerichte' : 'Meat Dishes',
       icon: 'ri-fire-line',
       color: 'from-[#8B0000] to-[#A52A2A]'
     },
     {
-      id: 'fischgerichte',
-      title: language === 'de' ? 'Fischgerichte' : 'Fish Dishes',
+      id: 'hahnchengerichte',
+      title: language === 'de' ? 'Hähnchengerichte' : 'Chicken Dishes',
+      icon: 'ri-restaurant-line',
+      color: 'from-[#CD853F] to-[#DEB887]'
+    },
+    {
+      id: 'frischgerichte',
+      title: language === 'de' ? 'Frischgerichte' : 'Fresh Dishes',
       icon: 'ri-anchor-line',
       color: 'from-[#4682B4] to-[#5F9EA0]'
     },
@@ -90,6 +96,12 @@ export default function Specialties() {
       title: language === 'de' ? 'Dessert' : 'Dessert',
       icon: 'ri-cake-2-line',
       color: 'from-[#D4AF37] to-[#C7A454]'
+    },
+    {
+      id: 'getranke',
+      title: language === 'de' ? 'Getränke' : 'Drinks',
+      icon: 'ri-cup-line',
+      color: 'from-[#4169E1] to-[#6495ED]'
     }
   ];
 

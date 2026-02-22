@@ -4,7 +4,8 @@ import Navbar from '../home/components/Navbar';
 import Footer from '../home/components/Footer';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useAuth } from '../../contexts/AuthContext';
-import { menuService, categoryService } from '../../services/menuService';
+import { menuService, categoryService, subcategoryService } from '../../services/menuService';
+import { DrinkSubcategory } from '../../lib/supabase';
 
 interface MenuItemData {
   id?: string;
@@ -16,6 +17,7 @@ interface MenuItemData {
   allergens: string;
   price: string;
   category: string;
+  subcategoryId?: string;
 }
 
 export default function MenuPage() {
@@ -31,6 +33,7 @@ export default function MenuPage() {
   const [deleteConfirmItem, setDeleteConfirmItem] = useState<MenuItemData | null>(null);
   const [editFormData, setEditFormData] = useState<Partial<MenuItemData>>({});
   const [categories, setCategories] = useState<any[]>([]);
+  const [subcategories, setSubcategories] = useState<DrinkSubcategory[]>([]);
   const [categoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
   const categoryDropdownRef = useRef<HTMLDivElement>(null);
 
@@ -87,6 +90,10 @@ export default function MenuPage() {
           setCategories(formattedCategories);
         }
 
+        // Load drink subcategories
+        const drinkSubcategories = await subcategoryService.getSubcategoriesByCategory('getranke');
+        setSubcategories(drinkSubcategories);
+
         // Load all menu items from Supabase
         const allItems = await menuService.getAllItems();
         
@@ -101,6 +108,7 @@ export default function MenuPage() {
           allergens: item.allergens,
           price: item.price,
           category: item.category_id,
+          subcategoryId: item.subcategory_id,
         }));
         
         setDynamicItems(formattedItems);
@@ -165,6 +173,7 @@ export default function MenuPage() {
         allergens: item.allergens,
         price: item.price,
         category: item.category_id,
+        subcategoryId: item.subcategory_id,
       }));
       setDynamicItems(formattedItems);
       setDeleteConfirmItem(null);
@@ -226,6 +235,7 @@ export default function MenuPage() {
       allergens: item.allergens,
       price: item.price,
       category: item.category_id,
+      subcategoryId: item.subcategory_id,
     }));
     setDynamicItems(formattedItems);
   };
@@ -273,6 +283,7 @@ export default function MenuPage() {
         allergens: item.allergens,
         price: item.price,
         category: item.category_id,
+        subcategoryId: item.subcategory_id,
       }));
       setDynamicItems(formattedItems);
       setEditingItem(null);
@@ -283,7 +294,7 @@ export default function MenuPage() {
   // Helper function to get and sort items for a category
   const getCategoryItems = (categoryId: string): MenuItemData[] => {
     // Filter items from dynamicItems (which contains all items from Supabase)
-    const categoryItems = dynamicItems.filter(item => item.category === categoryId);
+    const categoryItems = dynamicItems.filter(item => item.category === categoryId && !item.subcategoryId);
     // Sort by price (extract number from price string like "12,90 €" -> 12.90)
     return categoryItems.sort((a, b) => {
       const priceA = parseFloat(a.price.replace(/[^\d,]/g, '').replace(',', '.')) || 0;
@@ -291,6 +302,14 @@ export default function MenuPage() {
       return priceA - priceB;
     });
   };
+
+  // Helper function to get items for a subcategory
+  const getSubcategoryItems = (subcategoryId: string): MenuItemData[] => {
+    const subcategoryItems = dynamicItems.filter(item => item.subcategoryId === subcategoryId);
+    // Sort by nr (item number)
+    return subcategoryItems.sort((a, b) => a.nr - b.nr);
+  };
+
 
   // Menu Item Component - supports both old format (individual props) and new format (item object)
   function MenuItem(props: { item?: MenuItemData, isDynamic?: boolean, nr?: number, name?: string, nameEn?: string, description?: string, descriptionEn?: string, allergens?: string, price?: string }) {
@@ -324,7 +343,9 @@ export default function MenuPage() {
             <div className="flex items-start gap-3">
               <div className="flex-1">
                 <h4 className="text-lg font-serif text-[#F5E6D3] mb-1">{language === 'de' ? itemName : itemNameEn}</h4>
-                <p className="text-sm text-[#F5E6D3]/70 leading-relaxed">{language === 'de' ? itemDesc : itemDescEn}</p>
+                {(itemDesc || itemDescEn) && (
+                  <p className="text-sm text-[#F5E6D3]/70 leading-relaxed">{language === 'de' ? itemDesc : itemDescEn}</p>
+                )}
                 {itemAllergens !== '–' && (
                   <span 
                     onClick={() => {
@@ -342,7 +363,9 @@ export default function MenuPage() {
             </div>
           </div>
           <div className="md:ml-4 flex items-center gap-4">
-            <span className="text-lg font-medium text-[#C7A454]">{itemPrice}</span>
+            <span className="text-lg font-medium text-[#C7A454]">
+              {itemPrice.includes('€') ? itemPrice : `${itemPrice} €`}
+            </span>
             {user?.isAdmin && id && (
               <div className="flex items-center gap-2">
                 <button
@@ -367,20 +390,20 @@ export default function MenuPage() {
     );
   }
 
-  // Category navigation data
+  // Category navigation data - Updated to match SQL structure
   const categoryNav = [
     { id: 'suppen', icon: 'ri-bowl-line', nameDe: 'Suppen', nameEn: 'Soups' },
+    { id: 'focaccia', icon: 'ri-bread-line', nameDe: 'Focaccia', nameEn: 'Focaccia' },
     { id: 'antipasti', icon: 'ri-restaurant-2-line', nameDe: 'Antipasti', nameEn: 'Appetizers' },
     { id: 'salate', icon: 'ri-leaf-line', nameDe: 'Salate', nameEn: 'Salads' },
     { id: 'pasta', icon: 'material-symbols-outlined', iconName: 'dinner_dining', nameDe: 'Pasta', nameEn: 'Pasta' },
     { id: 'tagliatelle-gnocchi', icon: 'ri-restaurant-line', nameDe: 'Tagliatelle & Gnocchi', nameEn: 'Tagliatelle & Gnocchi' },
     { id: 'pizza', icon: 'material-symbols-outlined', iconName: 'local_pizza', nameDe: 'Pizza', nameEn: 'Pizza' },
-    { id: 'focaccia', icon: 'ri-bread-line', nameDe: 'Focaccia', nameEn: 'Focaccia' },
     { id: 'fleischgerichte', icon: 'ri-fire-line', nameDe: 'Fleischgerichte', nameEn: 'Meat Dishes' },
-    { id: 'entrecote-kalb', icon: 'ri-restaurant-line', nameDe: 'Entrecôte & Kalb', nameEn: 'Entrecôte & Veal' },
-    { id: 'leber-hahnchen', icon: 'ri-restaurant-line', nameDe: 'Leber & Hähnchen', nameEn: 'Liver & Chicken' },
-    { id: 'fischgerichte', icon: 'ri-anchor-line', nameDe: 'Fischgerichte', nameEn: 'Fish Dishes' },
+    { id: 'hahnchengerichte', icon: 'ri-restaurant-line', nameDe: 'Hähnchengerichte', nameEn: 'Chicken Dishes' },
+    { id: 'frischgerichte', icon: 'ri-anchor-line', nameDe: 'Frischgerichte', nameEn: 'Fresh Dishes' },
     { id: 'dessert', icon: 'ri-cake-2-line', nameDe: 'Dessert', nameEn: 'Dessert' },
+    { id: 'getranke', icon: 'ri-cup-line', nameDe: 'Getränke', nameEn: 'Drinks' },
   ];
 
   const scrollToCategory = (id: string) => {
@@ -394,11 +417,11 @@ export default function MenuPage() {
     <div className="min-h-screen bg-[#410704]">
       {/* Hero Section */}
       <section id="hero" className="relative pt-32 pb-32 flex items-center justify-center overflow-hidden min-h-[500px]">
-        {/* Elegant Background - Same as Reservations Page */}
+        {/* Elegant Background */}
         <div 
-          className="absolute inset-0 bg-cover bg-center opacity-15 object-top"
+          className="absolute inset-0 bg-cover bg-center opacity-15"
           style={{
-            backgroundImage: 'url(https://readdy.ai/api/search-image?query=Luxurious%20Italian%20restaurant%20interior%20with%20elegant%20table%20settings%20crystal%20chandeliers%20warm%20golden%20lighting%20burgundy%20velvet%20chairs%20and%20sophisticated%20ambiance%20creating%20perfect%20dining%20atmosphere%20for%20special%20occasions&width=1920&height=1000&seq=reservation-hero-bg-001&orientation=landscape)'
+            backgroundImage: 'url(/interior/DSC04026.jpeg)'
           }}
         ></div>
         
@@ -443,13 +466,13 @@ export default function MenuPage() {
                 >
                   {category.id === 'pizza' || category.id === 'pasta' ? (
                     <span 
-                      className={`${category.icon} text-[#C7A454] group-hover:text-[#D4AF37] transition-colors text-lg flex-shrink-0`}
-                      style={{ fontFamily: "'Material Symbols Outlined', sans-serif" }}
+                      className={`${category.icon} text-[#C7A454] group-hover:text-[#D4AF37] transition-colors text-lg flex-shrink-0 inline-flex items-center justify-center`}
+                      style={{ fontFamily: "'Material Symbols Outlined', sans-serif", lineHeight: '1', height: '1.5rem', width: '1.5rem' }}
                     >
                       {category.iconName}
                     </span>
                   ) : (
-                    <i className={`${category.icon} text-[#C7A454] group-hover:text-[#D4AF37] transition-colors text-lg flex-shrink-0`}></i>
+                    <i className={`${category.icon} text-[#C7A454] group-hover:text-[#D4AF37] transition-colors text-lg flex-shrink-0 inline-flex items-center justify-center`} style={{ height: '1.5rem', width: '1.5rem' }}></i>
                   )}
                   <span className="text-xs font-medium text-[#F5E6D3] group-hover:text-[#C7A454] transition-colors truncate">
                     {language === 'de' ? category.nameDe : category.nameEn}
@@ -486,13 +509,13 @@ export default function MenuPage() {
                     >
                       {category.id === 'pizza' || category.id === 'pasta' ? (
                         <span 
-                          className={`${category.icon} text-[#C7A454] text-lg flex-shrink-0`}
-                          style={{ fontFamily: "'Material Symbols Outlined', sans-serif" }}
+                          className={`${category.icon} text-[#C7A454] text-lg flex-shrink-0 inline-flex items-center justify-center`}
+                          style={{ fontFamily: "'Material Symbols Outlined', sans-serif", lineHeight: '1', height: '1.5rem', width: '1.5rem' }}
                         >
                           {category.iconName}
                         </span>
                       ) : (
-                        <i className={`${category.icon} text-[#C7A454] text-lg flex-shrink-0`}></i>
+                        <i className={`${category.icon} text-[#C7A454] text-lg flex-shrink-0 inline-flex items-center justify-center`} style={{ height: '1.5rem', width: '1.5rem' }}></i>
                       )}
                       <span className="text-sm font-medium text-[#F5E6D3]">
                         {language === 'de' ? category.nameDe : category.nameEn}
@@ -512,6 +535,21 @@ export default function MenuPage() {
               <div className="flex-1 h-0.5 bg-gradient-to-r from-[#C7A454] via-[#D4AF37] to-transparent ml-4"></div>
             </h3>
             {getCategoryItems('suppen').map((item) => {
+              const isStatic = item.id?.startsWith('static-');
+              return (
+                <MenuItem key={item.id} item={item} isDynamic={!isStatic} />
+              );
+            })}
+          </div>
+
+          {/* Focaccia */}
+          <div id="focaccia" className="mb-16 scroll-mt-24">
+            <h3 className="text-3xl font-serif text-[#C7A454] mb-8 pb-3 border-b border-[#C7A454]/30 flex items-center gap-4">
+              <i className="ri-bread-line text-2xl"></i>
+              <span>Focaccia</span>
+              <div className="flex-1 h-0.5 bg-gradient-to-r from-[#C7A454] via-[#D4AF37] to-transparent ml-4"></div>
+            </h3>
+            {getCategoryItems('focaccia').map((item) => {
               const isStatic = item.id?.startsWith('static-');
               return (
                 <MenuItem key={item.id} item={item} isDynamic={!isStatic} />
@@ -541,7 +579,6 @@ export default function MenuPage() {
               <span>{language === 'de' ? 'Salate' : 'Salads'}</span>
               <div className="flex-1 h-0.5 bg-gradient-to-r from-[#C7A454] via-[#D4AF37] to-transparent ml-4"></div>
             </h3>
-            <p className="text-sm text-[#F5E6D3]/60 italic mb-6">{language === 'de' ? 'Alle Salate werden wahlweise mit Hausdressing oder Honig-Senf-Dressing serviert.' : 'All salads are served with either house dressing or honey-mustard dressing.'}</p>
             {getCategoryItems('salate').map((item) => {
               const isStatic = item.id?.startsWith('static-');
               return (
@@ -587,7 +624,7 @@ export default function MenuPage() {
 
           {/* Pizza */}
           <div id="pizza" className="mb-16 scroll-mt-24">
-            <h3 className="text-3xl font-serif text-[#C7A454] mb-4 pb-3 border-b border-[#C7A454]/30 flex items-center gap-4">
+            <h3 className="text-3xl font-serif text-[#C7A454] mb-8 pb-3 border-b border-[#C7A454]/30 flex items-center gap-4">
               <span 
                 className="material-symbols-outlined text-2xl text-[#C7A454]"
                 style={{ fontFamily: "'Material Symbols Outlined', sans-serif" }}
@@ -597,23 +634,7 @@ export default function MenuPage() {
               <span>Pizza</span>
               <div className="flex-1 h-0.5 bg-gradient-to-r from-[#C7A454] via-[#D4AF37] to-transparent ml-4"></div>
             </h3>
-            <p className="text-sm text-[#F5E6D3]/60 italic mb-6">{language === 'de' ? 'Alle Pizzen werden mit Tomatensauce und Mozzarella belegt.' : 'All pizzas are topped with tomato sauce and mozzarella.'}</p>
             {getCategoryItems('pizza').map((item) => {
-              const isStatic = item.id?.startsWith('static-');
-              return (
-                <MenuItem key={item.id} item={item} isDynamic={!isStatic} />
-              );
-            })}
-          </div>
-
-          {/* Focaccia */}
-          <div id="focaccia" className="mb-16 scroll-mt-24">
-            <h3 className="text-3xl font-serif text-[#C7A454] mb-8 pb-3 border-b border-[#C7A454]/30 flex items-center gap-4">
-              <i className="ri-bread-line text-2xl"></i>
-              <span>Focaccia</span>
-              <div className="flex-1 h-0.5 bg-gradient-to-r from-[#C7A454] via-[#D4AF37] to-transparent ml-4"></div>
-            </h3>
-            {getCategoryItems('focaccia').map((item) => {
               const isStatic = item.id?.startsWith('static-');
               return (
                 <MenuItem key={item.id} item={item} isDynamic={!isStatic} />
@@ -623,12 +644,11 @@ export default function MenuPage() {
 
           {/* Fleischgerichte */}
           <div id="fleischgerichte" className="mb-16 scroll-mt-24">
-            <h3 className="text-3xl font-serif text-[#C7A454] mb-4 pb-3 border-b border-[#C7A454]/30 flex items-center gap-4">
-              <i className="ri-dinner-line text-3xl text-[#C7A454] flex-shrink-0"></i>
+            <h3 className="text-3xl font-serif text-[#C7A454] mb-8 pb-3 border-b border-[#C7A454]/30 flex items-center gap-4">
+              <i className="ri-fire-line text-2xl"></i>
               <span>{language === 'de' ? 'Fleischgerichte' : 'Meat Dishes'}</span>
               <div className="flex-1 h-0.5 bg-gradient-to-r from-[#C7A454] via-[#D4AF37] to-transparent ml-4"></div>
             </h3>
-            <p className="text-sm text-[#F5E6D3]/60 italic mb-6">{language === 'de' ? 'Alle Fleischgerichte werden mit Beilagensalat serviert. Alle Fleischgerichte werden medium gegrillt.' : 'All meat dishes are served with side salad. All meat dishes are grilled medium.'}</p>
             {getCategoryItems('fleischgerichte').map((item) => {
               const isStatic = item.id?.startsWith('static-');
               return (
@@ -637,14 +657,14 @@ export default function MenuPage() {
             })}
           </div>
 
-          {/* Entrecôte & Kalb */}
-          <div id="entrecote-kalb" className="mb-16 scroll-mt-24">
+          {/* Hähnchengerichte */}
+          <div id="hahnchengerichte" className="mb-16 scroll-mt-24">
             <h3 className="text-3xl font-serif text-[#C7A454] mb-8 pb-3 border-b border-[#C7A454]/30 flex items-center gap-4">
               <i className="ri-restaurant-line text-2xl"></i>
-              <span>Entrecôte & Kalb</span>
+              <span>{language === 'de' ? 'Hähnchengerichte' : 'Chicken Dishes'}</span>
               <div className="flex-1 h-0.5 bg-gradient-to-r from-[#C7A454] via-[#D4AF37] to-transparent ml-4"></div>
             </h3>
-            {getCategoryItems('entrecote-kalb').map((item) => {
+            {getCategoryItems('hahnchengerichte').map((item) => {
               const isStatic = item.id?.startsWith('static-');
               return (
                 <MenuItem key={item.id} item={item} isDynamic={!isStatic} />
@@ -652,37 +672,20 @@ export default function MenuPage() {
             })}
           </div>
 
-          {/* Leber & Hähnchen */}
-          <div id="leber-hahnchen" className="mb-16 scroll-mt-24">
-            <h3 className="text-3xl font-serif text-[#C7A454] mb-4 pb-3 border-b border-[#C7A454]/30 flex items-center gap-4">
-              <i className="ri-restaurant-line text-2xl"></i>
-              <span>{language === 'de' ? 'Leber & Hähnchen' : 'Liver & Chicken'}</span>
+          {/* Frischgerichte */}
+          <div id="frischgerichte" className="mb-16 scroll-mt-24">
+            <h3 className="text-3xl font-serif text-[#C7A454] mb-8 pb-3 border-b border-[#C7A454]/30 flex items-center gap-4">
+              <i className="ri-anchor-line text-2xl"></i>
+              <span>{language === 'de' ? 'Frischgerichte' : 'Fresh Dishes'}</span>
               <div className="flex-1 h-0.5 bg-gradient-to-r from-[#C7A454] via-[#D4AF37] to-transparent ml-4"></div>
             </h3>
-            <p className="text-sm text-[#F5E6D3]/60 italic mb-6">{language === 'de' ? 'Alle Leber- und Hähnchengerichte werden mit Beilagensalat serviert.' : 'All liver and chicken dishes are served with side salad.'}</p>
-            {getCategoryItems('leber-hahnchen').map((item) => {
+            {getCategoryItems('frischgerichte').map((item) => {
               const isStatic = item.id?.startsWith('static-');
               return (
                 <MenuItem key={item.id} item={item} isDynamic={!isStatic} />
               );
             })}
           </div>
-
-          {/* Fischgerichte */}
-          <div id="fischgerichte" className="mb-16 scroll-mt-24">
-            <h3 className="text-3xl font-serif text-[#C7A454] mb-4 pb-3 border-b border-[#C7A454]/30 flex items-center gap-4">
-              <i className="ri-water-line text-3xl text-[#C7A454] flex-shrink-0"></i>
-              <span>{language === 'de' ? 'Fischgerichte' : 'Fish Dishes'}</span>
-              <div className="flex-1 h-0.5 bg-gradient-to-r from-[#C7A454] via-[#D4AF37] to-transparent ml-4"></div>
-            </h3>
-            <p className="text-sm text-[#F5E6D3]/60 italic mb-6">{language === 'de' ? 'Alle Fischgerichte werden mit Beilagensalat serviert.' : 'All fish dishes are served with side salad.'}</p>
-            {getCategoryItems('fischgerichte').map((item) => {
-              const isStatic = item.id?.startsWith('static-');
-              return (
-                <MenuItem key={item.id} item={item} isDynamic={!isStatic} />
-              );
-            })}
-                </div>
 
           {/* Dessert */}
           <div id="dessert" className="mb-16 scroll-mt-24">
@@ -690,13 +693,57 @@ export default function MenuPage() {
               <i className="ri-cake-2-line text-2xl"></i>
               <span>Dessert</span>
               <div className="flex-1 h-0.5 bg-gradient-to-r from-[#C7A454] via-[#D4AF37] to-transparent ml-4"></div>
-                </h3>
+            </h3>
             {getCategoryItems('dessert').map((item) => {
               const isStatic = item.id?.startsWith('static-');
               return (
                 <MenuItem key={item.id} item={item} isDynamic={!isStatic} />
               );
             })}
+          </div>
+
+          {/* Getränke with Subcategories */}
+          <div id="getranke" className="mb-16 scroll-mt-24">
+            <h3 className="text-3xl font-serif text-[#C7A454] mb-8 pb-3 border-b border-[#C7A454]/30 flex items-center gap-4">
+              <i className="ri-cup-line text-2xl"></i>
+              <span>{language === 'de' ? 'Getränke' : 'Drinks'}</span>
+              <div className="flex-1 h-0.5 bg-gradient-to-r from-[#C7A454] via-[#D4AF37] to-transparent ml-4"></div>
+            </h3>
+            
+            {/* Subcategories - Flat List */}
+            <div className="space-y-8">
+              {subcategories
+                .sort((a, b) => a.subcategory_nr - b.subcategory_nr)
+                .map((subcategory) => {
+                  const subcategoryItems = getSubcategoryItems(subcategory.id);
+                  
+                  return (
+                    <div key={subcategory.id}>
+                      {/* Subcategory Header */}
+                      <h4 className="text-2xl font-serif text-[#C7A454] mb-6 pb-2 border-b border-[#C7A454]/20 flex items-center gap-3">
+                        <span className="text-xl font-semibold text-[#C7A454]">
+                          {subcategory.subcategory_nr}.
+                        </span>
+                        <span className="text-[#C7A454]">
+                          {language === 'de' ? subcategory.name_de : subcategory.name_en}
+                        </span>
+                      </h4>
+                      
+                      {/* Subcategory Items */}
+                      {subcategoryItems.length > 0 && (
+                        <div className="space-y-4">
+                          {subcategoryItems.map((item) => {
+                            const isStatic = item.id?.startsWith('static-');
+                            return (
+                              <MenuItem key={item.id} item={item} isDynamic={!isStatic} />
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+            </div>
           </div>
 
           {/* Allergen-Legende */}

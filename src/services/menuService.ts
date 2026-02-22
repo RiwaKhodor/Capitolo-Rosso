@@ -1,4 +1,4 @@
-import { supabase, MenuItem, MenuCategory } from '../lib/supabase';
+import { supabase, MenuItem, MenuCategory, DrinkSubcategory } from '../lib/supabase';
 
 // Menu Items
 export const menuService = {
@@ -176,5 +176,38 @@ export const categoryService = {
       return false;
     }
     return true;
+  },
+};
+
+// Drink Subcategories
+export const subcategoryService = {
+  // Get all subcategories for a category
+  async getSubcategoriesByCategory(categoryId: string): Promise<DrinkSubcategory[]> {
+    const { data, error } = await supabase
+      .from('drink_subcategories')
+      .select('*')
+      .eq('category_id', categoryId)
+      .order('subcategory_nr');
+    
+    if (error) {
+      console.error('Error fetching subcategories:', error);
+      return [];
+    }
+    return data || [];
+  },
+
+  // Get subcategory by ID
+  async getSubcategoryById(id: string): Promise<DrinkSubcategory | null> {
+    const { data, error } = await supabase
+      .from('drink_subcategories')
+      .select('*')
+      .eq('id', id)
+      .single();
+    
+    if (error) {
+      console.error('Error fetching subcategory:', error);
+      return null;
+    }
+    return data;
   },
 };

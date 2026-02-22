@@ -29,11 +29,11 @@ export default function Hero() {
 
   return (
     <section className="relative pt-32 pb-32 flex items-center justify-center overflow-hidden min-h-[500px]">
-      {/* Elegant Background - Same as Reservations Page */}
+      {/* Elegant Background */}
       <div 
-        className="absolute inset-0 bg-cover bg-center opacity-15 object-top"
+        className="absolute inset-0 bg-cover bg-center opacity-15"
         style={{
-          backgroundImage: 'url(https://readdy.ai/api/search-image?query=Luxurious%20Italian%20restaurant%20interior%20with%20elegant%20table%20settings%20crystal%20chandeliers%20warm%20golden%20lighting%20burgundy%20velvet%20chairs%20and%20sophisticated%20ambiance%20creating%20perfect%20dining%20atmosphere%20for%20special%20occasions&width=1920&height=1000&seq=reservation-hero-bg-001&orientation=landscape)'
+          backgroundImage: 'url(/interior/DSC04026.jpeg)'
         }}
       ></div>
 

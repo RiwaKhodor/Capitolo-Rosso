@@ -34,9 +34,10 @@ export default function Hero() {
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background Image */}
         <div 
-          className="absolute inset-0 bg-cover bg-center object-top"
+          className="absolute inset-0 bg-cover"
           style={{
-            backgroundImage: 'url(https://static.readdy.ai/image/8df7d770b451dbfd4517ea3088de8db0/46f137a8276c14ea74cb5d0227c04ba6.jpeg)'
+            backgroundImage: 'url(/interior/DSC04050%281%29.jpeg)',
+            backgroundPosition: 'center bottom'
           }}
         ></div>
         

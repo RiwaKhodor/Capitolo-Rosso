@@ -20,6 +20,17 @@ export interface MenuItem {
   allergens: string;
   price: string;
   category_id: string;
+  subcategory_id?: string;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface DrinkSubcategory {
+  id: string;
+  subcategory_nr: number;
+  name_de: string;
+  name_en: string;
+  category_id: string;
   created_at?: string;
   updated_at?: string;
 }

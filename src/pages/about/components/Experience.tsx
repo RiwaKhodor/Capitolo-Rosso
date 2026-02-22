@@ -110,7 +110,7 @@ export default function Experience() {
           <div className={`hidden md:block relative transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'}`}>
             <div className="w-full h-[600px] rounded-lg overflow-hidden">
               <img 
-                src="https://readdy.ai/api/search-image?query=elegant%20french%20restaurant%20interior%20capitolo%20rosso%20style%20burgundy%20and%20cream%20color%20scheme%20sophisticated%20dining%20room%20with%20beautifully%20set%20tables%20warm%20ambient%20lighting%20wine%20glasses%20fine%20dining%20atmosphere%20bordeaux%20inspired%20decor%20intimate%20luxurious%20setting&width=600&height=900&seq=experience-interior&orientation=portrait" 
+                src="/interior/DSC04042%281%29.jpeg" 
                 alt="Restaurant Experience" 
                 className="w-full h-full object-cover"
               />

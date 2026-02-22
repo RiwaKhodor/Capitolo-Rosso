@@ -41,14 +41,25 @@ export default function About() {
           </div>
         </div>
 
-        <div className={`relative max-w-4xl mx-auto transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
-          {/* Top-left corner border */}
-          <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-[#C7A454]"></div>
-          
-          {/* Bottom-right corner border */}
-          <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-[#C7A454]"></div>
-          
-          <div className="space-y-6 p-8">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className={`relative transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'}`}>
+            <div className="w-full aspect-square md:h-[500px] rounded-lg overflow-hidden">
+              <img 
+                src="/interior/DSC04042%281%29.jpeg" 
+                alt="A Culinary Journey Through Italy" 
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className={`absolute -bottom-6 -right-6 w-48 h-48 rounded-lg overflow-hidden transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+              <img 
+                src="/gallery/DSC03816.jpeg" 
+                alt="A Culinary Journey Through Italy" 
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+
+          <div className={`space-y-6 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'}`}>
             <p className="text-base text-[#F5E6D3] leading-relaxed">
               {t('about.p1')}
             </p>

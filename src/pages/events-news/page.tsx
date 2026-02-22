@@ -375,11 +375,11 @@ export default function EventsNews() {
         ref={heroRef}
         className="relative pt-32 pb-32 flex items-center justify-center overflow-hidden min-h-[500px]"
       >
-        {/* Elegant Background - Same as Reservations Page */}
+        {/* Elegant Background */}
         <div 
-          className="absolute inset-0 bg-cover bg-center opacity-15 object-top"
+          className="absolute inset-0 bg-cover bg-center opacity-15"
           style={{
-            backgroundImage: 'url(https://readdy.ai/api/search-image?query=Luxurious%20Italian%20restaurant%20interior%20with%20elegant%20table%20settings%20crystal%20chandeliers%20warm%20golden%20lighting%20burgundy%20velvet%20chairs%20and%20sophisticated%20ambiance%20creating%20perfect%20dining%20atmosphere%20for%20special%20occasions&width=1920&height=1000&seq=reservation-hero-bg-001&orientation=landscape)'
+            backgroundImage: 'url(/interior/DSC04026.jpeg)'
           }}
         ></div>
 
@@ -421,9 +421,9 @@ export default function EventsNews() {
             }`}>
               <div className="w-full aspect-square md:h-[600px] md:aspect-auto rounded-lg overflow-hidden">
                 <img
-                  src="https://readdy.ai/api/search-image?query=elegant%20french%20restaurant%20interior%20capitolo%20rosso%20style%20burgundy%20and%20cream%20color%20scheme%20sophisticated%20dining%20room%20with%20beautifully%20set%20tables%20warm%20ambient%20lighting%20wine%20glasses%20fine%20dining%20atmosphere%20bordeaux%20inspired%20decor%20intimate%20luxurious%20setting&width=600&height=900&seq=experience-interior&orientation=portrait"
+                  src="/interior/image.png"
                   alt="Restaurant Services"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-center"
                   loading="eager"
                 />
               </div>
