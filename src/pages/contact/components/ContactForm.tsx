@@ -44,9 +44,35 @@ export default function ContactForm() {
         }),
       });
 
-      const data = await response.json();
+      // Check if response is ok and has content
+      if (!response.ok) {
+        // Try to get error message from response
+        let errorMessage = `Server error: ${response.status} ${response.statusText}`;
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.error || errorData.details || errorMessage;
+        } catch (e) {
+          // If response is not JSON, use status text
+          const text = await response.text();
+          errorMessage = text || errorMessage;
+        }
+        throw new Error(errorMessage);
+      }
 
-      if (response.ok && data.success) {
+      // Parse JSON response
+      let data;
+      try {
+        const text = await response.text();
+        if (!text) {
+          throw new Error('Empty response from server');
+        }
+        data = JSON.parse(text);
+      } catch (parseError) {
+        console.error('Failed to parse response:', parseError);
+        throw new Error('Invalid response from server. Please check if the API is configured correctly.');
+      }
+
+      if (data.success) {
         setSubmitStatus('success');
         setFormData({
           name: '',
@@ -65,11 +91,21 @@ export default function ContactForm() {
       setSubmitStatus('error');
       
       // Show the actual error message if available
-      const errorMessage = error instanceof Error 
-        ? error.message 
-        : (language === 'de' 
-          ? 'Fehler beim Senden der E-Mail. Bitte versuchen Sie es später erneut oder kontaktieren Sie uns direkt.'
-          : 'Error sending email. Please try again later or contact us directly.');
+      let errorMessage = 'Error sending email. Please try again later or contact us directly.';
+      
+      if (error instanceof Error) {
+        errorMessage = error.message;
+        // Provide user-friendly messages for common errors
+        if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+          errorMessage = language === 'de' 
+            ? 'Verbindungsfehler. Bitte überprüfen Sie Ihre Internetverbindung.'
+            : 'Connection error. Please check your internet connection.';
+        } else if (error.message.includes('Invalid response') || error.message.includes('Empty response')) {
+          errorMessage = language === 'de'
+            ? 'API nicht konfiguriert. Bitte kontaktieren Sie den Administrator.'
+            : 'API not configured. Please contact the administrator.';
+        }
+      }
       
       setErrorMessage(errorMessage);
     } finally {
