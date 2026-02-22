@@ -152,7 +152,7 @@ export default function ContactForm() {
               {/* Subject */}
               <div>
                 <label htmlFor="subject" className="block text-sm font-medium text-[#F5E6D3] mb-2">
-                  {language === 'de' ? 'Betreff' : 'Subject'} *
+                  {language === 'de' ? 'Betreff' : 'Subject'}
                 </label>
                 <input
                   type="text"
@@ -160,7 +160,6 @@ export default function ContactForm() {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  required
                   className="w-full px-4 py-3 bg-[#410704] border border-[#C7A454]/30 rounded-md text-[#F5E6D3] placeholder-[#F5E6D3]/50 focus:outline-none focus:border-[#C7A454] focus:ring-2 focus:ring-[#C7A454]/20 transition-all"
                   placeholder={language === 'de' ? 'Betreff Ihrer Nachricht' : 'Subject of your message'}
                 />

@@ -20,7 +20,7 @@ export default async function handler(
 
   const { name, email, phone, subject, message } = request.body;
 
-  if (!name || !email || !subject || !message) {
+  if (!name || !email || !message) {
     return response.status(400).json({ error: 'Missing required fields' });
   }
 
@@ -51,17 +51,18 @@ export default async function handler(
     });
 
     // Email content
+    const emailSubject = subject && subject.trim() ? subject : 'No Subject';
     const mailOptions = {
       from: `"${name}" <Info@capitolo-rosso.de>`,
       to: 'Info@capitolo-rosso.de',
       replyTo: email,
-      subject: `Contact Form: ${subject}`,
+      subject: `Contact Form: ${emailSubject}`,
       html: `
         <h2>New Contact Form Submission</h2>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
         ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ''}
-        <p><strong>Subject:</strong> ${subject}</p>
+        ${subject && subject.trim() ? `<p><strong>Subject:</strong> ${subject}</p>` : ''}
         <p><strong>Message:</strong></p>
         <p>${message.replace(/\n/g, '<br>')}</p>
       `,
@@ -71,7 +72,7 @@ export default async function handler(
         Name: ${name}
         Email: ${email}
         ${phone ? `Phone: ${phone}` : ''}
-        Subject: ${subject}
+        ${subject && subject.trim() ? `Subject: ${subject}` : ''}
         
         Message:
         ${message}
