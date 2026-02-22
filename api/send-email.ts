@@ -28,25 +28,22 @@ export default async function handler(
     // Create transporter using SMTP
     // Environment variables must be set in Vercel Dashboard:
     // SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS
-    const smtpHost = process.env.SMTP_HOST;
-    const smtpPort = process.env.SMTP_PORT;
-    const smtpUser = process.env.SMTP_USER;
-    const smtpPass = process.env.SMTP_PASS;
-
-    if (!smtpHost || !smtpPort || !smtpUser || !smtpPass) {
+    
+    // Validate environment variables
+    if (!process.env.SMTP_HOST || !process.env.SMTP_PORT || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
       console.error('Missing SMTP environment variables');
       return response.status(500).json({ 
-        error: 'Email service not configured. Please set SMTP environment variables.',
+        error: 'Email service not configured. Please set SMTP environment variables in Vercel.',
       });
     }
 
     const transporter = nodemailer.createTransport({
-      host: smtpHost,
-      port: parseInt(smtpPort),
-      secure: parseInt(smtpPort) === 465, // true for 465 (SSL), false for 587 (TLS)
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT),
+      secure: false, // false for 587 (TLS), true for 465 (SSL)
       auth: {
-        user: smtpUser,
-        pass: smtpPass,
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
       },
     });
 
