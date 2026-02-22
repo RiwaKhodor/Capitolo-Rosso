@@ -18,7 +18,6 @@ const translations: Record<string, Record<string, string>> = {
     'nav.about': 'Über Uns',
     
     // Hero Section
-    'hero.tagline': 'Italian Elegance in Berlin',
     'hero.description': 'Erleben Sie die Kunst der italienischen Küche im Herzen Berlins.',
     'hero.description2': 'Wo Tradition auf Innovation trifft und jedes Gericht eine Geschichte erzählt.',
     'hero.reserve': 'Jetzt Reservieren',
@@ -535,7 +534,6 @@ const translations: Record<string, Record<string, string>> = {
     'footer.poweredBy': 'Powered by Readdy',
     
     // Hero Section Additional
-    'hero.tagline': 'Italian Elegance in Berlin',
     'hero.viewFullMenu': 'View Full Menu',
     'hero.reserveTable': 'Reserve Table',
     
