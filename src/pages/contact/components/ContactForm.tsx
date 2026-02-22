@@ -149,7 +149,7 @@ export default function ContactForm() {
                 />
               </div>
 
-              {/* Subject */}
+              {/* Subject - Optional */}
               <div>
                 <label htmlFor="subject" className="block text-sm font-medium text-[#F5E6D3] mb-2">
                   {language === 'de' ? 'Betreff' : 'Subject'}
