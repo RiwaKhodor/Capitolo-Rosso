@@ -55,7 +55,7 @@ export default function Story() {
             </div>
             <div className={`absolute -bottom-6 -right-6 w-48 h-48 rounded-lg overflow-hidden transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               <img 
-                src="/gallery/DSC03816.jpeg" 
+                src="/gallery/DSC04211.jpeg" 
                 alt="A Culinary Journey Through Italy" 
                 className="w-full h-full object-cover"
                 loading="lazy"
