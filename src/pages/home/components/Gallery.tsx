@@ -39,9 +39,11 @@ export default function RestaurantStory() {
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <div className="w-full aspect-square">
                 <img 
-                  src="https://readdy.ai/api/search-image?query=Elegant%20Italian%20restaurant%20interior%20with%20sophisticated%20ambiance%20featuring%20warm%20lighting%20vintage%20wine%20bottles%20rustic%20wooden%20tables%20fresh%20ingredients%20and%20authentic%20culinary%20atmosphere%20showcasing%20traditional%20European%20dining%20excellence%20on%20simple%20clean%20background&width=800&height=800&seq=restaurant-story-main-001&orientation=squarish" 
+                  src="/interior/DSC04026.jpeg" 
                   alt="Restaurant Interior" 
                   className="w-full h-full object-cover object-top"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-[#410704]/40 to-transparent"></div>
@@ -50,9 +52,11 @@ export default function RestaurantStory() {
             {/* Elegant Accent Image */}
             <div className={`absolute -bottom-8 -right-8 w-48 h-48 rounded-2xl overflow-hidden shadow-xl transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
               <img 
-                src="https://readdy.ai/api/search-image?query=Exquisite%20Italian%20wine%20bottle%20with%20vintage%20label%20elegant%20glass%20of%20red%20wine%20on%20sophisticated%20dark%20wooden%20table%20with%20soft%20ambient%20lighting%20creating%20luxurious%20fine%20dining%20atmosphere%20premium%20quality%20photography%20simple%20elegant%20background&width=400&height=400&seq=restaurant-wine-elegant-002&orientation=squarish" 
+                src="/gallery/DSC03816.jpeg" 
                 alt="Fine Wine" 
                 className="w-full h-full object-cover object-top"
+                loading="lazy"
+                decoding="async"
               />
             </div>
           </div>
