@@ -39,7 +39,7 @@ export default function RestaurantStory() {
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <div className="w-full aspect-square">
                 <img 
-                  src="/interior/DSC04026.jpeg" 
+                  src="/interior/DSC04042%281%29.jpeg" 
                   alt="Restaurant Interior" 
                   className="w-full h-full object-cover object-top"
                   loading="lazy"
@@ -52,9 +52,9 @@ export default function RestaurantStory() {
             {/* Elegant Accent Image */}
             <div className={`absolute -bottom-8 -right-8 w-48 h-48 rounded-2xl overflow-hidden shadow-xl transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
               <img 
-                src="/gallery/DSC03816.jpeg" 
+                src="/gallery/DSC03924.jpeg" 
                 alt="Fine Wine" 
-                className="w-full h-full object-cover object-top"
+                className="w-full h-full object-cover object-center"
                 loading="lazy"
                 decoding="async"
               />
