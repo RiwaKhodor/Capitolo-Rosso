@@ -41,29 +41,8 @@ export default function About() {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className={`relative transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'}`}>
-            <div className="w-full aspect-square md:h-[500px] rounded-lg overflow-hidden">
-              <img 
-                src="/interior/DSC04026.jpeg" 
-                alt="A Culinary Journey Through Italy" 
-                className="w-full h-full object-cover"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-            <div className={`absolute -bottom-6 -right-6 w-48 h-48 rounded-lg overflow-hidden transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <img 
-                src="/gallery/DSC03816.jpeg" 
-                alt="A Culinary Journey Through Italy" 
-                className="w-full h-full object-cover"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-          </div>
-
-          <div className={`space-y-6 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'}`}>
+        <div className="max-w-4xl mx-auto">
+          <div className={`space-y-6 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <p className="text-base text-[#F5E6D3] leading-relaxed">
               {t('about.p1')}
             </p>
