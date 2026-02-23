@@ -45,7 +45,7 @@ export default function About() {
           <div className={`relative transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'}`}>
             <div className="w-full aspect-square md:h-[500px] rounded-lg overflow-hidden">
               <img 
-                src="/interior/DSC04042%281%29.jpeg" 
+                src="/interior/DSC04026.jpeg" 
                 alt="A Culinary Journey Through Italy" 
                 className="w-full h-full object-cover"
                 loading="lazy"
