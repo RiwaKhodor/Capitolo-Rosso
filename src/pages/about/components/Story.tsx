@@ -1,8 +1,6 @@
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { useEffect, useRef, useState } from 'react';
 
-// Force redeploy
-
 export default function Story() {
   const { t } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
