@@ -13,6 +13,14 @@
 -- Step 1: Delete all existing menu items
 DELETE FROM menu_items;
 
+-- Step 1.5: Drop drink_sub_subcategories table if it exists (to avoid foreign key constraint issues)
+DO $$ 
+BEGIN
+  IF EXISTS (SELECT FROM information_schema.tables WHERE table_name = 'drink_sub_subcategories') THEN
+    DROP TABLE drink_sub_subcategories CASCADE;
+  END IF;
+END $$;
+
 -- Step 2: Delete all existing drink subcategories (must be deleted before categories due to foreign key)
 DELETE FROM drink_subcategories;
 
@@ -30,6 +38,7 @@ CREATE TABLE IF NOT EXISTS drink_subcategories (
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+
 -- Step 2.6: Add subcategory_id column to menu_items if it doesn't exist
 DO $$ 
 BEGIN
@@ -40,6 +49,7 @@ BEGIN
     ALTER TABLE menu_items ADD COLUMN subcategory_id TEXT REFERENCES drink_subcategories(id);
   END IF;
 END $$;
+
 
 -- Step 3: Insert Menu Categories (in order)
 INSERT INTO menu_categories (id, name_de, name_en, icon) VALUES
@@ -56,7 +66,7 @@ INSERT INTO menu_categories (id, name_de, name_en, icon) VALUES
 ('dessert', 'Dessert', 'Dessert', 'ri-cake-2-line'),
 ('getranke', 'Getränke', 'Drinks', 'ri-cup-line');
 
--- Step 4.5: Insert Drink Subcategories (numbered 1-13)
+-- Step 4.5: Insert Drink Subcategories (numbered 1-17, but 14-17 display without numbers)
 INSERT INTO drink_subcategories (id, subcategory_nr, name_de, name_en, category_id) VALUES
 ('tee', 1, 'Tee', 'Tea', 'getranke'),
 ('caffetteria', 2, 'Caffetteria', 'Coffee', 'getranke'),
@@ -70,26 +80,30 @@ INSERT INTO drink_subcategories (id, subcategory_nr, name_de, name_en, category_
 ('vini-bianchi', 10, 'Vini Bianchi', 'White Wines', 'getranke'),
 ('vini-rosato', 11, 'Vini Rosato', 'Rosé Wines', 'getranke'),
 ('vini-rossi', 12, 'Vini Rossi', 'Red Wines', 'getranke'),
-('vino-bottiglia', 13, 'Vino in Bottiglia', 'Wine by the Bottle', 'getranke');
+('vino-bottiglia', 13, 'Vino in Bottiglia', 'Wine by the Bottle', 'getranke'),
+('vino-bottiglia-weiss', 14, 'Weiss', 'White', 'getranke'),
+('vino-bottiglia-rose', 15, 'Rosé', 'Rosé', 'getranke'),
+('vino-bottiglia-rot', 16, 'Rot', 'Red', 'getranke'),
+('vino-bottiglia-prosecco', 17, 'Prosecco', 'Prosecco', 'getranke');
 
 -- Step 5: Insert Menu Items (in order by category)
 
 -- SUPPEN (Soups) - Items 1-3
 INSERT INTO menu_items (nr, name, name_en, description, description_en, allergens, price, category_id) VALUES
 (1, 'CREMA DI POMODORO', 'Tomato Cream Soup', 'Tomatensuppe mit frischem Basilikum und Sahne.', 'Tomato soup with fresh basil and cream.', 'G', '6.90', 'suppen'),
-(2, 'MINESTRONE DI VERDURA', 'Vegetable Minestrone', 'Hausgemachte Gemüsesuppe.', 'Homemade vegetable soup.', '–', '6.90', 'suppen'),
-(3, 'ZUPPA DI PESCE', 'Fish Soup', 'Fischsuppe nach sizilianischer Art.', 'Sicilian-style fish soup.', 'D', '12.90', 'suppen');
+(2, 'MINESTRONE DI VERDURA', 'Vegetable Minestrone', 'Hausgemachte Gemüsesuppe.', 'Homemade vegetable soup.', 'I', '6.90', 'suppen'),
+(3, 'ZUPPA DI PESCE', 'Fish Soup', 'Fischsuppe nach sizilianischer Art.', 'Sicilian-style fish soup.', 'B,D,N,L', '12.90', 'suppen');
 
 -- FOCACCIA - Items 4-6
 INSERT INTO menu_items (nr, name, name_en, description, description_en, allergens, price, category_id) VALUES
-(4, 'FOCACCIA AL ROSMARINO', 'Rosemary Focaccia', 'Mit Rosmarin, Knoblauch und Oregano.', 'With rosemary, garlic, and oregano.', 'A,G', '7.90', 'focaccia'),
-(5, 'FOCACCIA AL POMODORO', 'Tomato Focaccia', 'Mit Tomaten und frischem Basilikum, Knoblauch und Oregano.', 'With tomatoes and fresh basil, garlic, and oregano.', 'A,G', '9.90', 'focaccia'),
+(4, 'FOCACCIA AL ROSMARINO', 'Rosemary Focaccia', 'Mit Rosmarin, Knoblauch und Oregano.', 'With rosemary, garlic, and oregano.', 'A', '7.90', 'focaccia'),
+(5, 'FOCACCIA AL POMODORO', 'Tomato Focaccia', 'Mit Tomaten und frischem Basilikum, Knoblauch und Oregano.', 'With tomatoes and fresh basil, garlic, and oregano.', 'A', '9.90', 'focaccia'),
 (6, 'FOCACCIA CON PROSCIUTTO DI PARMA E BUFALA', 'Focaccia with Parma Ham and Buffalo Mozzarella', 'Büffelmozzarella, Knoblauch, Oregano und Parmaschinken.', 'Buffalo mozzarella, garlic, oregano, and Parma ham.', 'A,G', '15.90', 'focaccia');
 
 -- ANTIPASTI (Appetizers) - Items 7-13
 INSERT INTO menu_items (nr, name, name_en, description, description_en, allergens, price, category_id) VALUES
-(7, 'BRUSCHETTA', 'Bruschetta', 'Geröstetes Brot mit frischen Tomaten, Knoblauch, Basilikum und Oregano.', 'Toasted bread with fresh tomatoes, garlic, basil, and oregano.', 'A,G', '5.90', 'antipasti'),
-(8, 'MOZZARELLA DI BUFALA CON BASILICO', 'Buffalo Mozzarella with Basil', 'Frische Tomaten mit italienischem Büffelmozzarella und Basilikumpesto.', 'Fresh tomatoes with Italian buffalo mozzarella and basil pesto.', 'A,G,H', '11.90', 'antipasti'),
+(7, 'BRUSCHETTA', 'Bruschetta', 'Geröstetes Brot mit frischen Tomaten, Knoblauch, Basilikum und Oregano.', 'Toasted bread with fresh tomatoes, garlic, basil, and oregano.', 'A', '5.90', 'antipasti'),
+(8, 'MOZZARELLA DI BUFALA CON BASILICO', 'Buffalo Mozzarella with Basil', 'Frische Tomaten mit italienischem Büffelmozzarella und Basilikumpesto.', 'Fresh tomatoes with Italian buffalo mozzarella and basil pesto.', 'G,H', '11.90', 'antipasti'),
 (9, 'VITELLO TONNATO', 'Veal with Tuna Sauce', 'Kalbfleisch mit Thunfischsauce, Kapern, Rucola und Kirschtomaten.', 'Veal with tuna sauce, capers, arugula, and cherry tomatoes.', 'C,D', '15.90', 'antipasti'),
 (10, 'CARPACCIO DI MANZO', 'Beef Carpaccio', 'Hauchdünne Scheiben vom Rinderfilet mit Rucola, Kirschtomaten und Parmesan.', 'Thinly sliced beef fillet with arugula, cherry tomatoes, and Parmesan.', 'G', '13.90', 'antipasti'),
 (11, 'ANTIPASTI DI VERDURA (FÜR 2 PERSONEN)', 'Vegetable Antipasti (For 2 People)', 'Gegrilltes Gemüse der Saison.', 'Grilled seasonal vegetables.', '–', '18.90', 'antipasti'),
@@ -143,10 +157,10 @@ INSERT INTO menu_items (nr, name, name_en, description, description_en, allergen
 (47, 'PIZZA DIAVOLA', 'Pizza Diavola', 'Mit Tomatensauce, Mozzarella, scharfer Salami, Basilikum und Chiliöl.', 'With tomato sauce, mozzarella, spicy salami, basil, and chili oil.', 'A,G', '14.90', 'pizza'),
 (48, 'PIZZA CALZONE', 'Pizza Calzone', 'Mit Tomatensauce, Mozzarella, Pilzen, gekochtem Schinken, Salami und Peperoni.', 'With tomato sauce, mozzarella, mushrooms, cooked ham, salami, and pepperoni.', 'A,G', '14.90', 'pizza'),
 (49, 'PIZZA PARMA', 'Pizza with Parma Ham', 'Mit Tomatensauce, Mozzarella, Parmaschinken, Rucola und Parmesan.', 'With tomato sauce, mozzarella, Parma ham, arugula, and Parmesan.', 'A,G', '16.90', 'pizza'),
-(50, 'PIZZA CAESAR E POLLO', 'Pizza Caesar with Chicken', 'Mit Caesar-Dressing, Mozzarella, gebratenem Hähnchen, Kirschtomaten, Romana-Salat und Parmesan.', 'With Caesar dressing, mozzarella, fried chicken, cherry tomatoes, romaine lettuce, and Parmesan.', 'A,C,G', '16.90', 'pizza'),
+(50, 'PIZZA CAESAR E POLLO', 'Pizza Caesar with Chicken', 'Mit Caesar-Dressing, Mozzarella, gebratenem Hähnchen, Kirschtomaten, Romana-Salat und Parmesan.', 'With Caesar dressing, mozzarella, fried chicken, cherry tomatoes, romaine lettuce, and Parmesan.', 'A,C,D,G,J', '16.90', 'pizza'),
 (51, 'PIZZA TONNO', 'Pizza with Tuna', 'Mit Tomatensauce, Mozzarella, Thunfisch, roten Zwiebeln und Oliven.', 'With tomato sauce, mozzarella, tuna, red onions, and olives.', 'A,D,G', '14.90', 'pizza'),
 (52, 'PIZZA SCAMPI', 'Pizza with Shrimp', 'Mit Tomatensauce, Mozzarella, Garnelen, Knoblauch, Petersilie und Rucola.', 'With tomato sauce, mozzarella, shrimp, garlic, parsley, and arugula.', 'A,B,G', '16.90', 'pizza'),
-(53, 'PIZZA FRUTTI DI MARE', 'Pizza with Seafood', 'Mit Tomatensauce, Mozzarella, Meeresfrüchten, Knoblauch, Petersilie und Zitrone.', 'With tomato sauce, mozzarella, seafood, garlic, parsley, and lemon.', 'A,B,N', '16.90', 'pizza'),
+(53, 'PIZZA FRUTTI DI MARE', 'Pizza with Seafood', 'Mit Tomatensauce, Mozzarella, Meeresfrüchten, Knoblauch, Petersilie und Zitrone.', 'With tomato sauce, mozzarella, seafood, garlic, parsley, and lemon.', 'A,B,G,N', '16.90', 'pizza'),
 (54, 'PIZZA SALMONE E SPINACI', 'Pizza with Salmon and Spinach', 'Spinat, Mozzarella und Lachsstreifen (Crème fraîche).', 'Spinach, mozzarella, and salmon strips (crème fraîche).', 'A,D,G', '16.90', 'pizza');
 
 -- FLEISCHGERICHTE (Meat Dishes) - Items 55-59
@@ -181,24 +195,24 @@ INSERT INTO menu_items (nr, name, name_en, description, description_en, allergen
 -- 1. TEE (Tea) - Items 1-7
 -- Note: Tea items don't have descriptions in the menu
 INSERT INTO menu_items (nr, name, name_en, description, description_en, allergens, price, category_id, subcategory_id) VALUES
-(1, 'DARJEELING', 'Darjeeling', '', '', '–', '3.50', 'getranke', 'tee'),
-(2, 'EARL GREY', 'Earl Grey', '', '', '–', '3.50', 'getranke', 'tee'),
-(3, 'GREENTEA ASIA', 'Green Tea Asia', '', '', '–', '3.50', 'getranke', 'tee'),
-(4, 'HERBAL GARDEN', 'Herbal Garden', '', '', '–', '3.50', 'getranke', 'tee'),
-(5, 'CHAMOMILE FLOWER', 'Chamomile Flower', '', '', '–', '3.50', 'getranke', 'tee'),
-(6, 'BIO RELAX AYURVITAL', 'Bio Relax Ayurvital', '', '', '–', '3.50', 'getranke', 'tee'),
-(7, 'FRESH GINGER / MINT / LEMON', 'Fresh Ginger / Mint / Lemon', '', '', '–', '5.50', 'getranke', 'tee');
+(1, 'DARJEELING (TASSE)', 'Darjeeling (Cup)', '', '', '–', '3.50', 'getranke', 'tee'),
+(2, 'EARL GREY (TASSE)', 'Earl Grey (Cup)', '', '', '–', '3.50', 'getranke', 'tee'),
+(3, 'GREENTEA ASIA (TASSE)', 'Green Tea Asia (Cup)', '', '', '–', '3.50', 'getranke', 'tee'),
+(4, 'HERBAL GARDEN (TASSE)', 'Herbal Garden (Cup)', '', '', '–', '3.50', 'getranke', 'tee'),
+(5, 'CHAMOMILE FLOWER (TASSE)', 'Chamomile Flower (Cup)', '', '', '–', '3.50', 'getranke', 'tee'),
+(6, 'BIO RELAX AYURVITAL (TASSE)', 'Bio Relax Ayurvital (Cup)', '', '', '–', '3.50', 'getranke', 'tee'),
+(7, 'FRESH GINGER / MINT / LEMON (TASSE)', 'Fresh Ginger / Mint / Lemon (Cup)', '', '', '–', '5.50', 'getranke', 'tee');
 
 -- 2. CAFFETTERIA (Coffee) - Items 8-16
 INSERT INTO menu_items (nr, name, name_en, description, description_en, allergens, price, category_id, subcategory_id) VALUES
-(8, 'ESPRESSO', 'Espresso', 'Italienischer Espresso.', 'Italian espresso.', '–', '2.80', 'getranke', 'caffetteria'),
-(9, 'ESPRESSO DOPPIO', 'Espresso Doppio', 'Doppelter Espresso.', 'Double espresso.', '–', '3.80', 'getranke', 'caffetteria'),
-(10, 'ESPRESSO CORRETTO', 'Espresso Corretto', 'Espresso mit Grappa.', 'Espresso with grappa.', '–', '4.50', 'getranke', 'caffetteria'),
-(11, 'CAPPUCCINO', 'Cappuccino', 'Espresso mit geschäumter Milch.', 'Espresso with frothed milk.', 'G', '4.00', 'getranke', 'caffetteria'),
-(12, 'CAFFÈ AMERICANO', 'Caffè Americano', 'Espresso mit heißem Wasser.', 'Espresso with hot water.', '–', '3.50', 'getranke', 'caffetteria'),
-(13, 'LATTE MACCHIATO', 'Latte Macchiato', 'Geschäumte Milch mit Espresso.', 'Frothed milk with espresso.', 'G', '4.00', 'getranke', 'caffetteria'),
-(14, 'HOT CHOCOLATE', 'Hot Chocolate', 'Heiße Schokolade mit Sahne.', 'Hot chocolate with cream.', 'G', '4.50', 'getranke', 'caffetteria'),
-(15, 'IRISH COFFEE', 'Irish Coffee', 'Mit 4 cl Whiskey.', 'With 4 cl whiskey.', '–', '8.50', 'getranke', 'caffetteria');
+(8, 'ESPRESSO (TASSE)', 'Espresso (Cup)', '', '', '–', '2.80', 'getranke', 'caffetteria'),
+(9, 'ESPRESSO DOPPIO (TASSE)', 'Espresso Doppio (Cup)', '', '', '–', '3.80', 'getranke', 'caffetteria'),
+(10, 'ESPRESSO CORRETTO (TASSE)', 'Espresso Corretto (Cup)', 'Mit Grappa.', 'With grappa.', '–', '4.50', 'getranke', 'caffetteria'),
+(11, 'CAPPUCCINO (TASSE)', 'Cappuccino (Cup)', '', '', 'G', '4.00', 'getranke', 'caffetteria'),
+(12, 'CAFFÈ AMERICANO (TASSE)', 'Caffè Americano (Cup)', '', '', '–', '3.50', 'getranke', 'caffetteria'),
+(13, 'LATTE MACCHIATO (TASSE)', 'Latte Macchiato (Cup)', '', '', 'G', '4.00', 'getranke', 'caffetteria'),
+(14, 'HOT CHOCOLATE (TASSE)', 'Hot Chocolate (Cup)', 'Mit Sahne.', 'With cream.', 'G', '4.50', 'getranke', 'caffetteria'),
+(15, 'IRISH COFFEE (TASSE)', 'Irish Coffee (Cup)', 'Mit 4 cl Whiskey.', 'With 4 cl whiskey.', '–', '8.50', 'getranke', 'caffetteria');
 
 -- 3. HOMEMADE LIMONATA - Items 17-18
 INSERT INTO menu_items (nr, name, name_en, description, description_en, allergens, price, category_id, subcategory_id) VALUES
@@ -224,7 +238,7 @@ INSERT INTO menu_items (nr, name, name_en, description, description_en, allergen
 
 -- 5. APERITIVO (Aperitifs) - Items 33-38
 INSERT INTO menu_items (nr, name, name_en, description, description_en, allergens, price, category_id, subcategory_id) VALUES
-(33, 'CAMPARI SPRITZ/ORANGE/SODA/TONIC (GLAS)', 'Campari Spritz/Orange/Soda/Tonic (Glass)', 'Campari mit Frizzante, Orange, Soda oder Tonic.', 'Campari with Frizzante, Orange, Soda, or Tonic.', '–', '9.50', 'getranke', 'aperitivo'),
+(33, 'CAMPARI SPRITZ/ORANGE/SODA/TONIC (GLAS)', 'Campari Spritz/Orange/Soda/Tonic (Glass)', '', '', '–', '9.50', 'getranke', 'aperitivo'),
 (34, 'APEROL SPRITZ (GLAS)', 'Aperol Spritz (Glass)', 'Frizzante, Aperol & Soda.', 'Frizzante, Aperol & Soda.', '–', '9.50', 'getranke', 'aperitivo'),
 (35, 'APEROL PASSION FRUIT/RHUBARB (GLAS)', 'Aperol Passion Fruit/Rhubarb (Glass)', 'Frizzante, Aperol, Maracuja oder Rhabarber Nektar.', 'Frizzante, Aperol, passion fruit or rhubarb nectar.', '–', '9.50', 'getranke', 'aperitivo'),
 (36, 'LIMONCELLO SPRITZ (GLAS)', 'Limoncello Spritz (Glass)', 'Limoncello, Prosecco & Soda.', 'Limoncello, Prosecco & Soda.', '–', '9.50', 'getranke', 'aperitivo'),
@@ -235,25 +249,25 @@ INSERT INTO menu_items (nr, name, name_en, description, description_en, allergen
 INSERT INTO menu_items (nr, name, name_en, description, description_en, allergens, price, category_id, subcategory_id) VALUES
 (39, 'MOJITO (GLAS)', 'Mojito (Glass)', 'Weißer Rum, Soda, frische Limetten, brauner Zucker & Minze.', 'White rum, soda, fresh limes, brown sugar & mint.', '–', '10.00', 'getranke', 'cocktails'),
 (40, 'MAI TAI (GLAS)', 'Mai Tai (Glass)', 'Weißer Rum, Zucker, Cointreau & Limette.', 'White rum, sugar, Cointreau & lime.', '–', '10.00', 'getranke', 'cocktails'),
-(41, 'PINA COLADA (GLAS)', 'Piña Colada (Glass)', 'Weißer Rum, Zucker, Kokoslikör, Ananassaft, Sahne & Kokosmilch.', 'White rum, sugar, coconut liqueur, pineapple juice, cream & coconut milk.', 'G', '10.00', 'getranke', 'cocktails'),
+(41, 'PINA COLADA (GLAS)', 'Piña Colada (Glass)', 'Weißer Rum, Zucker, Kokoslikör, Ananassaft, Sahne & Kokosmilch.', 'White rum, sugar, coconut liqueur, pineapple juice, cream & coconut milk.', '–', '10.00', 'getranke', 'cocktails'),
 (42, 'SEX ON THE BEACH (GLAS)', 'Sex on the Beach (Glass)', 'Vodka, Grenadinesirup, Limettensaft, Orangensaft & Cranberrysaft.', 'Vodka, grenadine syrup, lime juice, orange juice & cranberry juice.', '–', '10.00', 'getranke', 'cocktails'),
 (43, 'LONG ISLAND ICE TEA (GLAS)', 'Long Island Ice Tea (Glass)', 'Vodka, weißer Rum, Tequila, Gin, Cointreau, Limettensaft & Cola.', 'Vodka, white rum, tequila, gin, Cointreau, lime juice & cola.', '–', '12.00', 'getranke', 'cocktails');
 
 -- 7. BIER VOM FASS (Beer from Tap) - Items 44-50
 INSERT INTO menu_items (nr, name, name_en, description, description_en, allergens, price, category_id, subcategory_id) VALUES
-(44, 'BITBURGER PILS (0,3 L)', 'Bitburger Pils (0.3 L)', 'Deutsches Pilsner.', 'German Pilsner.', 'A', '3.90', 'getranke', 'bier-vom-fass'),
-(45, 'BITBURGER PILS (0,5 L)', 'Bitburger Pils (0.5 L)', 'Deutsches Pilsner.', 'German Pilsner.', 'A', '5.50', 'getranke', 'bier-vom-fass'),
-(46, 'KÖSTRITZER DARK (0,3 L)', 'Köstritzer Dark (0.3 L)', 'Dunkles Bier.', 'Dark beer.', 'A', '4.50', 'getranke', 'bier-vom-fass'),
-(47, 'KÖSTRITZER DARK (0,5 L)', 'Köstritzer Dark (0.5 L)', 'Dunkles Bier.', 'Dark beer.', 'A', '5.90', 'getranke', 'bier-vom-fass'),
-(48, 'WEIZEN (0.5 L)', 'Weizen (0.5 L)', 'Weizenbier.', 'Wheat beer.', 'A', '5.50', 'getranke', 'bier-vom-fass'),
-(49, 'RADLER (0,3 L)', 'Radler (0.3 L)', 'Sprite/Fanta/Coke (Fass).', 'Sprite/Fanta/Coke (cask soda).', 'A', '3.90', 'getranke', 'bier-vom-fass'),
-(50, 'RADLER (0,5 L)', 'Radler (0.5 L)', 'Sprite/Fanta/Coke (Fass).', 'Sprite/Fanta/Coke (cask soda).', 'A', '5.50', 'getranke', 'bier-vom-fass');
+(44, 'BITBURGER PILS (0,3 L)', 'Bitburger Pils (0.3 L)', '', '', '–', '3.90', 'getranke', 'bier-vom-fass'),
+(45, 'BITBURGER PILS (0,5 L)', 'Bitburger Pils (0.5 L)', '', '', '–', '5.50', 'getranke', 'bier-vom-fass'),
+(46, 'KÖSTRITZER DARK (0,3 L)', 'Köstritzer Dark (0.3 L)', '', '', '–', '4.50', 'getranke', 'bier-vom-fass'),
+(47, 'KÖSTRITZER DARK (0,5 L)', 'Köstritzer Dark (0.5 L)', '', '', '–', '5.90', 'getranke', 'bier-vom-fass'),
+(48, 'WEIZEN (0.5 L)', 'Weizen (0.5 L)', '', '', '–', '5.50', 'getranke', 'bier-vom-fass'),
+(49, 'RADLER (0,3 L)', 'Radler (0.3 L)', 'Sprite/Fanta/Coke (Fass).', 'Sprite/Fanta/Coke (cask soda).', '–', '3.90', 'getranke', 'bier-vom-fass'),
+(50, 'RADLER (0,5 L)', 'Radler (0.5 L)', 'Sprite/Fanta/Coke (Fass).', 'Sprite/Fanta/Coke (cask soda).', '–', '5.50', 'getranke', 'bier-vom-fass');
 
 -- 8. BIER (FLASCHE) (Beer Bottle) - Items 51-53
 INSERT INTO menu_items (nr, name, name_en, description, description_en, allergens, price, category_id, subcategory_id) VALUES
-(51, 'BENEDIKTINER (0,5 L)', 'Benediktiner (0.5 L)', 'Alkoholfrei.', 'Non-alcoholic.', 'A', '5.50', 'getranke', 'bier-flasche'),
-(52, 'BITBURGER 0,0% (0,33 L)', 'Bitburger 0.0% (0.33 L)', '', '', 'A', '4.50', 'getranke', 'bier-flasche'),
-(53, 'PERONI NASTRO AZZURRO (0,33 L)', 'Peroni Nastro Azzurro (0.33 L)', '', '', 'A', '4.50', 'getranke', 'bier-flasche');
+(51, 'BENEDIKTINER (0,5 L)', 'Benediktiner (0.5 L)', 'Alkoholfrei.', 'Non-alcoholic.', '–', '5.50', 'getranke', 'bier-flasche'),
+(52, 'BITBURGER 0,0% (0,33 L)', 'Bitburger 0.0% (0.33 L)', '', '', '–', '4.50', 'getranke', 'bier-flasche'),
+(53, 'PERONI NASTRO AZZURRO (0,33 L)', 'Peroni Nastro Azzurro (0.33 L)', '', '', '–', '4.50', 'getranke', 'bier-flasche');
 
 -- 9. SPIRITUOSEN (Spirits) - Items 54-71
 -- Note: Most spirits have 2 cl / 4 cl serving sizes with different prices
@@ -279,44 +293,52 @@ INSERT INTO menu_items (nr, name, name_en, description, description_en, allergen
 
 -- 10. VINI BIANCHI (White Wines) - Items 72-75
 INSERT INTO menu_items (nr, name, name_en, description, description_en, allergens, price, category_id, subcategory_id) VALUES
-(72, 'PINOT GRIGIO (0,2 L)', 'Pinot Grigio (0.2 L)', 'Italien, Nova Ponte, Veneto, besonders frisch & klare Struktur.', 'Italy, Nova Ponte, Veneto, particularly fresh & clear structure.', 'L', '7.50', 'getranke', 'vini-bianchi'),
-(73, 'SOAVE DOC (0,2 L)', 'Soave DOC (0.2 L)', 'Italien, Veneto, Trocken, sauream, sanft.', 'Italy, Veneto, Dry, slightly acidic, gentle.', 'L', '7.00', 'getranke', 'vini-bianchi'),
-(74, 'CHARDONNAY DOC (0,2 L)', 'Chardonnay DOC (0.2 L)', 'Italien, Veneto, Trocken, zarten, dezent bluming & elegant.', 'Italy, Veneto, Dry, delicate, subtly floral & elegant.', 'L', '7.80', 'getranke', 'vini-bianchi'),
-(75, 'FRIZZENTINO (0,2 L)', 'Frizzentino (0.2 L)', 'Italien, Veneto, Perlender, Lieblicher Weißwein.', 'Italy, Veneto, Sparkling, Sweet white wine.', 'L', '7.50', 'getranke', 'vini-bianchi');
+(72, 'PINOT GRIGIO (0,2 L)', 'Pinot Grigio (0.2 L)', 'Italien, Nova Ponte, Veneto, besonders frisch & klare Struktur.', 'Italy, Nova Ponte, Veneto, particularly fresh & clear structure.', '–', '7.50', 'getranke', 'vini-bianchi'),
+(73, 'SOAVE DOC (0,2 L)', 'Soave DOC (0.2 L)', 'Italien, Veneto, Trocken, sauream, sanft.', 'Italy, Veneto, Dry, slightly acidic, gentle.', '–', '7.00', 'getranke', 'vini-bianchi'),
+(74, 'CHARDONNAY DOC (0,2 L)', 'Chardonnay DOC (0.2 L)', 'Italien, Veneto, Trocken, zarten, dezent bluming & elegant.', 'Italy, Veneto, Dry, delicate, subtly floral & elegant.', '–', '7.80', 'getranke', 'vini-bianchi'),
+(75, 'FRIZZENTINO (0,2 L)', 'Frizzentino (0.2 L)', 'Italien, Veneto, Perlender, Lieblicher Weißwein.', 'Italy, Veneto, Sparkling, Sweet white wine.', '–', '7.50', 'getranke', 'vini-bianchi');
 
 -- 11. VINI ROSATO (Rosé Wines) - Item 76
 INSERT INTO menu_items (nr, name, name_en, description, description_en, allergens, price, category_id, subcategory_id) VALUES
-(76, 'BARDOLINO (0,2 L)', 'Bardolino (0.2 L)', 'Italien, Veneto, fruchtiges Bukett mit Veilchen & Rosen, frisch.', 'Italy, Veneto, fruity bouquet with violets & roses, fresh.', 'L', '7.50', 'getranke', 'vini-rosato');
+(76, 'BARDOLINO (0,2 L)', 'Bardolino (0.2 L)', 'Italien, Veneto, fruchtiges Bukett mit Veilchen & Rosen, frisch.', 'Italy, Veneto, fruity bouquet with violets & roses, fresh.', '–', '7.50', 'getranke', 'vini-rosato');
 
 -- 12. VINI ROSSI (Red Wines) - Items 77-81
 INSERT INTO menu_items (nr, name, name_en, description, description_en, allergens, price, category_id, subcategory_id) VALUES
-(77, 'MONTEPULCIANO (0,2 L)', 'Montepulciano (0.2 L)', 'Italien, Abruzzen, Kraftvoll, fruchtig, leichte Tannine, trocken.', 'Italy, Abruzzo, Powerful, fruity, light tannins, dry.', 'L', '7.50', 'getranke', 'vini-rossi'),
-(78, 'MERLOT (0,2 L)', 'Merlot (0.2 L)', 'Italien, Veneto, Frisch, leicht, dezent und wurzig.', 'Italy, Veneto, Fresh, light, subtle and spicy.', 'L', '7.50', 'getranke', 'vini-rossi'),
-(79, 'CHIANTI (0,2 L)', 'Chianti (0.2 L)', 'Italien, Toscana, Markent, fruchtig und feinem Veilchen-Bouquet.', 'Italy, Tuscany, Brand, fruity and fine violet bouquet.', 'L', '7.50', 'getranke', 'vini-rossi'),
-(80, 'NERO D''AVOLA (0,2 L)', 'Nero d''Avola (0.2 L)', 'Italien, Sizilien, Bombeere, Kirsche, Pflaume, rote Johannisbeere.', 'Italy, Sicily, Blackberry, cherry, plum, red currant.', 'L', '7.80', 'getranke', 'vini-rossi'),
-(81, 'LAMBRUSCO (0,2 L)', 'Lambrusco (0.2 L)', 'Italien, Emilia Romagna, Kraftvoll, fruchtig, leichte Perlung und angenehme Lieblichkeit.', 'Italy, Emilia Romagna, Powerful, fruity, light effervescence and pleasant sweetness.', 'L', '7.50', 'getranke', 'vini-rossi');
+(77, 'MONTEPULCIANO (0,2 L)', 'Montepulciano (0.2 L)', 'Italien, Abruzzen, Kraftvoll, fruchtig, leichte Tannine, trocken.', 'Italy, Abruzzo, Powerful, fruity, light tannins, dry.', '–', '7.50', 'getranke', 'vini-rossi'),
+(78, 'MERLOT (0,2 L)', 'Merlot (0.2 L)', 'Italien, Veneto, Frisch, leicht, dezent und wurzig.', 'Italy, Veneto, Fresh, light, subtle and spicy.', '–', '7.50', 'getranke', 'vini-rossi'),
+(79, 'CHIANTI (0,2 L)', 'Chianti (0.2 L)', 'Italien, Toscana, Markent, fruchtig und feinem Veilchen-Bouquet.', 'Italy, Tuscany, Brand, fruity and fine violet bouquet.', '–', '7.50', 'getranke', 'vini-rossi'),
+(80, 'NERO D''AVOLA (0,2 L)', 'Nero d''Avola (0.2 L)', 'Italien, Sizilien, Bombeere, Kirsche, Pflaume, rote Johannisbeere.', 'Italy, Sicily, Blackberry, cherry, plum, red currant.', '–', '7.80', 'getranke', 'vini-rossi'),
+(81, 'LAMBRUSCO (0,2 L)', 'Lambrusco (0.2 L)', 'Italien, Emilia Romagna, Kraftvoll, fruchtig, leichte Perlung und angenehme Lieblichkeit.', 'Italy, Emilia Romagna, Powerful, fruity, light effervescence and pleasant sweetness.', '–', '7.50', 'getranke', 'vini-rossi');
 
--- 13. VINO IN BOTTIGLIA (Wine by the Bottle) - Items 82-99
--- Note: This subcategory includes Rose, Rot, and Prosecco items as well
+-- WEISS (White Wines) - Items 82-87
 INSERT INTO menu_items (nr, name, name_en, description, description_en, allergens, price, category_id, subcategory_id) VALUES
-(82, 'BIANCO DI STELLE GRILLO (0,75 L)', 'Bianco di Stelle Grillo (0.75 L)', 'Italien, Sizilien.', 'Italy, Sicily.', 'L', '35.00', 'getranke', 'vino-bottiglia'),
-(83, 'ASCHERI GAVI DI GAVI (0,75 L)', 'Ascheri Gavi di Gavi (0.75 L)', 'Italien, Cortese, Piemont.', 'Italy, Cortese, Piedmont.', 'L', '39.80', 'getranke', 'vino-bottiglia'),
-(84, 'VERMENTINO COSTAMOLINO (0,75 L)', 'Vermentino Costamolino (0.75 L)', 'Italien, Sardinien.', 'Italy, Sardinia.', 'L', '75.00', 'getranke', 'vino-bottiglia'),
-(85, 'COSTAMOLINO VERMENTINO DOC', 'Costamolino Vermentino DOC', 'Frisch & mineralisch mit Mango, Melone und Zitrus.', 'Fresh & mineral with mango, melon, and citrus.', 'L', '38.90', 'getranke', 'vino-bottiglia'),
-(86, 'CÀ DEI FRATI LUGANA DOC', 'Cà dei Frati Lugana DOC', 'Blumig, Aprikose & Birne, elegant mit lebendiger Säure.', 'Floral, apricot & pear, elegant with lively acidity.', 'L', '47.90', 'getranke', 'vino-bottiglia'),
-(87, 'REGALEALI BIANCO SICILIA DOC', 'Regaleali Bianco Sicilia DOC', 'Zitrus & Kernobst, fruchtig und angenehm frisch.', 'Citrus & stone fruit, fruity and pleasantly fresh.', 'L', '39.90', 'getranke', 'vino-bottiglia'),
-(88, 'BARDOLINO (0,75 L)', 'Bardolino (0.75 L)', 'Italien, Lungarotti.', 'Italy, Lungarotti.', 'L', '35.00', 'getranke', 'vino-bottiglia'),
-(89, 'CÀ DEI FRATI ROSA DEI FRATI', 'Cà dei Frati Rosa dei Frati', 'Feinfruchtig, Waldbeeren, mineralisch und erfrischend.', 'Fine fruity, forest berries, mineral and refreshing.', 'L', '39.90', 'getranke', 'vino-bottiglia'),
-(90, 'REGALEALI ROSÉ TERRE SICILIANE IGT', 'Regaleali Rosé Terre Siciliane IGT', 'Erdbeere & Kirsche, zarte Säure, viel Frucht.', 'Strawberry & cherry, delicate acidity, much fruit.', 'L', '39.90', 'getranke', 'vino-bottiglia'),
-(91, 'NERO D''AVOLA (0,75 L)', 'Nero d''Avola (0.75 L)', 'Italien.', 'Italy.', 'L', '37.00', 'getranke', 'vino-bottiglia'),
-(92, 'MONTEPULCIANO CASA BORDINO (0,75 L)', 'Montepulciano Casa Bordino (0.75 L)', 'Italien.', 'Italy.', 'L', '35.00', 'getranke', 'vino-bottiglia'),
-(93, 'CASTEL MAISON MERLOT (0,75 L)', 'Castel Maison Merlot (0.75 L)', 'Italien.', 'Italy.', 'L', '33.00', 'getranke', 'vino-bottiglia'),
-(94, 'SALICE SALANTINO (0,75 L)', 'Salice Salentino (0.75 L)', 'Italien, trocken.', 'Italy, dry.', 'L', '39.00', 'getranke', 'vino-bottiglia'),
-(95, 'PRIMITIVO PUGLIA (0,75 L)', 'Primitivo Puglia (0.75 L)', 'Italien, Apulien.', 'Italy, Apulia.', 'L', '75.00', 'getranke', 'vino-bottiglia'),
-(96, 'REGALEALI NERO D''AVOLA DOC', 'Regaleali Nero d''Avola DOC', 'Pflaume & Kirsche, Vanille, vollmundig mit Struktur.', 'Plum & cherry, vanilla, full-bodied with structure.', 'L', '39.90', 'getranke', 'vino-bottiglia'),
-(97, 'PRIMITIVO DI MANDURIA', 'Primitivo di Manduria', 'Dunkle Beeren, würzig, kräftig und samtig.', 'Dark berries, spicy, strong and velvety.', 'L', '75.00', 'getranke', 'vino-bottiglia'),
-(98, 'PROSECCO (0,2 L)', 'Prosecco (0.2 L)', 'Italien.', 'Italy.', 'L', '7.00', 'getranke', 'vino-bottiglia'),
-(99, 'PROSECCO (0,75 L)', 'Prosecco (0.75 L)', 'Italien.', 'Italy.', 'L', '35.00', 'getranke', 'vino-bottiglia');
+(82, 'BIANCO DI STELLE GRILLO (0,75 L)', 'Bianco di Stelle Grillo (0.75 L)', 'Italien, Sizilien.', 'Italy, Sicily.', '–', '35.00', 'getranke', 'vino-bottiglia-weiss'),
+(83, 'ASCHERI GAVI DI GAVI (0,75 L)', 'Ascheri Gavi di Gavi (0.75 L)', 'Italien, Cortese, Piemont.', 'Italy, Cortese, Piedmont.', '–', '39.80', 'getranke', 'vino-bottiglia-weiss'),
+(84, 'VERMENTINO COSTAMOLINO (0,75 L)', 'Vermentino Costamolino (0.75 L)', 'Italien, Sardinien.', 'Italy, Sardinia.', '–', '75.00', 'getranke', 'vino-bottiglia-weiss'),
+(85, 'COSTAMOLINO VERMENTINO DOC', 'Costamolino Vermentino DOC', 'Frisch & mineralisch mit Mango, Melone und Zitrus.', 'Fresh & mineral with mango, melon, and citrus.', '–', '38.90', 'getranke', 'vino-bottiglia-weiss'),
+(86, 'CÀ DEI FRATI LUGANA DOC', 'Cà dei Frati Lugana DOC', 'Blumig, Aprikose & Birne, elegant mit lebendiger Säure.', 'Floral, apricot & pear, elegant with lively acidity.', '–', '47.90', 'getranke', 'vino-bottiglia-weiss'),
+(87, 'REGALEALI BIANCO SICILIA DOC', 'Regaleali Bianco Sicilia DOC', 'Zitrus & Kernobst, fruchtig und angenehm frisch.', 'Citrus & stone fruit, fruity and pleasantly fresh.', '–', '39.90', 'getranke', 'vino-bottiglia-weiss');
+
+-- ROSÉ - Items 88-90
+INSERT INTO menu_items (nr, name, name_en, description, description_en, allergens, price, category_id, subcategory_id) VALUES
+(88, 'BARDOLINO (0,75 L)', 'Bardolino (0.75 L)', 'Italien, Lungarotti.', 'Italy, Lungarotti.', '–', '35.00', 'getranke', 'vino-bottiglia-rose'),
+(89, 'CÀ DEI FRATI ROSA DEI FRATI', 'Cà dei Frati Rosa dei Frati', 'Feinfruchtig, Waldbeeren, mineralisch und erfrischend.', 'Fine fruity, forest berries, mineral and refreshing.', '–', '39.90', 'getranke', 'vino-bottiglia-rose'),
+(90, 'REGALEALI ROSÉ TERRE SICILIANE IGT', 'Regaleali Rosé Terre Siciliane IGT', 'Erdbeere & Kirsche, zarte Säure, viel Frucht.', 'Strawberry & cherry, delicate acidity, much fruit.', '–', '39.90', 'getranke', 'vino-bottiglia-rose');
+
+-- ROT (Red Wines) - Items 91-97
+INSERT INTO menu_items (nr, name, name_en, description, description_en, allergens, price, category_id, subcategory_id) VALUES
+(91, 'NERO D''AVOLA (0,75 L)', 'Nero d''Avola (0.75 L)', 'Italien.', 'Italy.', '–', '37.00', 'getranke', 'vino-bottiglia-rot'),
+(92, 'MONTEPULCIANO CASA BORDINO (0,75 L)', 'Montepulciano Casa Bordino (0.75 L)', 'Italien.', 'Italy.', '–', '35.00', 'getranke', 'vino-bottiglia-rot'),
+(93, 'CASTEL MAISON MERLOT (0,75 L)', 'Castel Maison Merlot (0.75 L)', 'Italien.', 'Italy.', '–', '33.00', 'getranke', 'vino-bottiglia-rot'),
+(94, 'SALICE SALANTINO (0,75 L)', 'Salice Salentino (0.75 L)', 'Italien, trocken.', 'Italy, dry.', '–', '39.00', 'getranke', 'vino-bottiglia-rot'),
+(95, 'PRIMITIVO PUGLIA (0,75 L)', 'Primitivo Puglia (0.75 L)', 'Italien, Apulien.', 'Italy, Apulia.', '–', '75.00', 'getranke', 'vino-bottiglia-rot'),
+(96, 'REGALEALI NERO D''AVOLA DOC', 'Regaleali Nero d''Avola DOC', 'Pflaume & Kirsche, Vanille, vollmundig mit Struktur.', 'Plum & cherry, vanilla, full-bodied with structure.', '–', '39.90', 'getranke', 'vino-bottiglia-rot'),
+(97, 'PRIMITIVO DI MANDURIA', 'Primitivo di Manduria', 'Dunkle Beeren, würzig, kräftig und samtig.', 'Dark berries, spicy, strong and velvety.', '–', '75.00', 'getranke', 'vino-bottiglia-rot');
+
+-- PROSECCO - Items 98-99
+INSERT INTO menu_items (nr, name, name_en, description, description_en, allergens, price, category_id, subcategory_id) VALUES
+(98, 'PROSECCO (0,2 L)', 'Prosecco (0.2 L)', 'Italien.', 'Italy.', '–', '7.00', 'getranke', 'vino-bottiglia-prosecco'),
+(99, 'PROSECCO (0,75 L)', 'Prosecco (0.75 L)', 'Italien.', 'Italy.', '–', '35.00', 'getranke', 'vino-bottiglia-prosecco');
 
 
 -- ============================================

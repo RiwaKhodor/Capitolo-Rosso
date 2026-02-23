@@ -721,9 +721,11 @@ export default function MenuPage() {
                     <div key={subcategory.id}>
                       {/* Subcategory Header */}
                       <h4 className="text-2xl font-serif text-[#C7A454] mb-6 pb-2 border-b border-[#C7A454]/20 flex items-center gap-3">
-                        <span className="text-xl font-semibold text-[#C7A454]">
-                          {subcategory.subcategory_nr}.
-                        </span>
+                        {subcategory.subcategory_nr && subcategory.subcategory_nr <= 13 && (
+                          <span className="text-xl font-semibold text-[#C7A454]">
+                            {subcategory.subcategory_nr}.
+                          </span>
+                        )}
                         <span className="text-[#C7A454]">
                           {language === 'de' ? subcategory.name_de : subcategory.name_en}
                         </span>
