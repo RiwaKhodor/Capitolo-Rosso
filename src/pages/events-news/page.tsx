@@ -300,7 +300,7 @@ export default function EventsNews() {
       // If update fails, try with only basic fields (in case _en columns don't exist)
       if (!updated) {
         console.log('First update attempt failed, trying with basic fields only...');
-        const basicUpdateData = {
+        const basicUpdateData: any = {
           title: updatedEventData.title,
           description: updatedEventData.description,
           date: updatedEventData.date,
