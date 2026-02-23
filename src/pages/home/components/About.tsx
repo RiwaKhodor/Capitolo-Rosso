@@ -42,7 +42,7 @@ export default function About() {
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <div className={`space-y-6 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className={`space-y-6 transition-all duration-1000 delay-200 text-center ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <p className="text-base text-[#F5E6D3] leading-relaxed">
               {t('about.p1')}
             </p>
