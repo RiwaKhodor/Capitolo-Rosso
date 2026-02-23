@@ -121,11 +121,6 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-[#C7A454]/30 pt-8 text-center">
-          <p className="text-sm">
-            {t('footer.rights')}
-          </p>
-        </div>
       </div>
     </footer>
   );
