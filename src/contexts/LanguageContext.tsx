@@ -17,7 +17,7 @@ const translations: Record<string, Record<string, string>> = {
     'nav.contact': 'Kontakt',
     'nav.about': 'Über Uns',
     
-    // Hero Section
+    // Hero Section - Main translations (tagline is here, not in Additional section)
     'hero.tagline': 'Italienische Eleganz in Berlin',
     'hero.description': 'Erleben Sie die Kunst der italienischen Küche im Herzen Berlins.',
     'hero.description2': 'Wo Tradition auf Innovation trifft und jedes Gericht eine Geschichte erzählt.',
@@ -389,7 +389,7 @@ const translations: Record<string, Record<string, string>> = {
     'nav.contact': 'Contact',
     'nav.about': 'About Us',
     
-    // Hero Section
+    // Hero Section - Main translations (tagline is here, not in Additional section)
     'hero.tagline': 'Italian Elegance in Berlin',
     'hero.description': 'Experience the art of Italian cuisine in the heart of Berlin.',
     'hero.description2': 'Where tradition meets innovation, and every dish tells a story.',
