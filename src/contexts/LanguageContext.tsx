@@ -533,7 +533,7 @@ const translations: Record<string, Record<string, string>> = {
     'footer.rights': '© 2025 Capitolo Rosso. All rights reserved.',
     'footer.poweredBy': 'Powered by Readdy',
     
-    // Hero Section Additional
+    // Hero Section Additional (viewFullMenu and reserveTable only)
     'hero.viewFullMenu': 'View Full Menu',
     'hero.reserveTable': 'Reserve Table',
     
